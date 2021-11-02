@@ -1,8 +1,14 @@
 //
 //  ContentView.swift
 //  Shared
+//  Creative Commons Attribution 4.0 International Public License
+//  Creative Commons may be contacted at creativecommons.org.
 //
-//  Created by Tom Cavalli on 11/2/21.
+//  Copyright (c) 2021 Thomas Cavalli
+//  Thomas Cavalli may be contacted at thomascavalli.com
+//
+//  List of What Changed (by Who and When):
+//  Created by Thomas Cavalli on 11/2/21.
 //
 
 import SwiftUI
