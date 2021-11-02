@@ -7,7 +7,7 @@ I converted the square tic-tac-toe into a linear string thus:
 
      O | X | O                                                                    *****
     ---+---+---                                                                 * ~   ~ *
-       | O |        became "OXO O XX "  Giving next move: "OXO O XXO"          *  O   o  *
+       | O |        became "OXO O XX "  Giving next move: "OXO O XXX"          *  O   o  *
     ---+---+---                         for the win!                            *   __, * 
      X | X |                                                                      *****
  
