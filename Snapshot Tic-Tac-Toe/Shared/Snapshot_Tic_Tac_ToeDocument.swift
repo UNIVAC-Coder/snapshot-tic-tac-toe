@@ -15,8 +15,8 @@ import SwiftUI
 import UniformTypeIdentifiers
 
 extension UTType {
-    static var exampleText: UTType {
-        UTType(importedAs: "com.example.plain-text")
+    static var snapshottictactoe: UTType {
+        UTType(importedAs: "com.thomascavalli.snapshottictactoe")
     }
 }
 
@@ -27,7 +27,7 @@ struct Snapshot_Tic_Tac_ToeDocument: FileDocument {
         self.text = text
     }
 
-    static var readableContentTypes: [UTType] { [.exampleText] }
+    static var readableContentTypes: [UTType] { [.snapshottictactoe] }
 
     init(configuration: ReadConfiguration) throws {
         guard let data = configuration.file.regularFileContents,
