@@ -15,9 +15,19 @@ import SwiftUI
 
 struct ContentView: View {
     @Binding var document: Snapshot_Tic_Tac_ToeDocument
-
+    @State private var tictactoe: String = "empty"
+    
     var body: some View {
-        TextEditor(text: $document.text)
+        VStack {
+            ScrollView() {
+                ForEach(self.document.games, id: \.self) { aGame in
+                    Text(aGame)
+                }
+            }
+            TextField("New game: ", text: $tictactoe, onCommit:  {
+                document.games.append(tictactoe)
+            })
+        }
     }
 }
 /*
