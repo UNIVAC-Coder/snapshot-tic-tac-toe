@@ -21,25 +21,28 @@ extension UTType {
 }
 
 struct Snapshot_Tic_Tac_ToeDocument: FileDocument {
-    var text: String
+    var games: [String]
 
-    init(text: String = "Hello, world!") {
-        self.text = text
+    init(text: [String] = ["X        >XO       "]) {
+        self.games = text
     }
 
     static var readableContentTypes: [UTType] { [.snapshottictactoe] }
 
     init(configuration: ReadConfiguration) throws {
-        guard let data = configuration.file.regularFileContents,
-              let string = String(data: data, encoding: .utf8)
+        guard let data = configuration.file.regularFileContents
         else {
             throw CocoaError(.fileReadCorruptFile)
         }
-        text = string
+        let parse = try NSKeyedUnarchiver(forReadingFrom: data)
+        parse.requiresSecureCoding = true
+        self.games = parse.decodeDecodable([String].self, forKey: "T") ?? ["         >         "]
     }
     
     func fileWrapper(configuration: WriteConfiguration) throws -> FileWrapper {
-        let data = text.data(using: .utf8)!
-        return .init(regularFileWithContents: data)
+        let abc = NSKeyedArchiver(requiringSecureCoding: true)
+        try abc.encodeEncodable(self.games, forKey: "T")
+        abc.finishEncoding()
+        return FileWrapper(regularFileWithContents: abc.encodedData)
     }
 }
