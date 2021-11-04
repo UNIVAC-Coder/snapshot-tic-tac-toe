@@ -21,10 +21,10 @@ extension UTType {
 }
 
 struct Snapshot_Tic_Tac_ToeDocument: FileDocument {
-    var games: [String]
+    var games: [TicTacToeMove]
 
-    init(text: [String] = ["X        >XO       "]) {
-        self.games = text
+    init() {
+        self.games = [TicTacToeMove(id: UUID(), board: "X        >XO       ", comment: "O's first move")]
     }
 
     static var readableContentTypes: [UTType] { [.snapshottictactoe] }
@@ -34,15 +34,13 @@ struct Snapshot_Tic_Tac_ToeDocument: FileDocument {
         else {
             throw CocoaError(.fileReadCorruptFile)
         }
-        let parse = try NSKeyedUnarchiver(forReadingFrom: data)
-        parse.requiresSecureCoding = true
-        self.games = parse.decodeDecodable([String].self, forKey: "T") ?? ["         >         "]
+        self.games = try JSONDecoder().decode([TicTacToeMove].self, from: data)
     }
     
     func fileWrapper(configuration: WriteConfiguration) throws -> FileWrapper {
-        let abc = NSKeyedArchiver(requiringSecureCoding: true)
-        try abc.encodeEncodable(self.games, forKey: "T")
-        abc.finishEncoding()
-        return FileWrapper(regularFileWithContents: abc.encodedData)
+        if let jsonData = try? JSONEncoder().encode(games) {
+            return FileWrapper(regularFileWithContents: jsonData)
+        }
+        throw CocoaError(.coderInvalidValue)
     }
 }

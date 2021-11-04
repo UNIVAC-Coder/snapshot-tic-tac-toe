@@ -13,21 +13,54 @@
 
 import SwiftUI
 
+private var geometryWidth:  CGFloat = -1 // is undefined
+private var geometryHeight: CGFloat = -1
+private var geometryLength: CGFloat = 52 // a reasonable value to start with.
+
 struct ContentView: View {
     @Binding var document: Snapshot_Tic_Tac_ToeDocument
-    @State private var tictactoe: String = "empty"
+    @State private var isBoardView: Bool = true
+    @State private var theTicTacToeMove: TicTacToeMove = TicTacToeMove()
     
     var body: some View {
-        VStack {
-            ScrollView() {
-                ForEach(self.document.games, id: \.self) { aGame in
-                    Text(aGame)
+        GeometryReader { geometry in
+            if isBoardView {
+                if self.document.games.count > 0 {
+                    HStack {
+                        Spacer()
+                        ScrollView() {
+                            ForEach(self.document.games, id: \.id) { aGame in
+                                
+                            }
+                        }
+                        Spacer()
+                    }
+                }else{
+                    Text("Tap here to add first Tic-Tac-Toe move.")
+                        .frame(width: 200.0, height: 50.0, alignment: .center)
+                        .background(Color("BGColor"))
+                        .onTapGesture {
+                            self.document.games = [TicTacToeMove()]
+                            self.theTicTacToeMove = TicTacToeMove()
+                            self.isBoardView = false
+                        }
                 }
+            }else{ // is not isBoardView
+                
             }
-            TextField("New game: ", text: $tictactoe, onCommit:  {
-                document.games.append(tictactoe)
-            })
         }
+    }
+    
+    func SquareSide(geometry: GeometryProxy) -> CGFloat {
+        if geometryWidth != geometry.size.width || geometryHeight != geometry.size.height {
+            geometryWidth = geometry.size.width
+            geometryHeight = geometry.size.height
+            var a = geometryWidth
+            let b = geometryHeight - (geometryHeight / 9.0)
+            if a > b { a = b }
+            geometryLength = a / 8.0 //there are 8 columns, 4 Rows on this screen
+        }
+        return geometryLength
     }
 }
 /*
