@@ -14,8 +14,27 @@
 import SwiftUI
 
 struct BoardView: View {
+    var tictactoeMove: TicTacToeMove
+    var length: CGFloat
+    
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        HStack {
+            VStack {
+                Text("")
+                    .frame(width: length * 11.0, height: 3.0, alignment: .center)
+                    .background(Color("DividerColor"))
+                    .padding()
+                Text("\(tictactoeMove.index)")
+                    .frame(width: length * 11.0, height: length * 0.45, alignment: .center)
+                    .foregroundColor(Color("DividerColor"))
+                    .font(.system(size: length * 0.4))
+                Text(tictactoeMove.comment)
+                    .frame(height: length * 0.75, alignment: .center)
+                    .font(.system(size: length * 0.5))
+                Text(tictactoeMove.board)
+                    .frame(height: length, alignment: .center)
+            }
+        }
     }
 }
 /*

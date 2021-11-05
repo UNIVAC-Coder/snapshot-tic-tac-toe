@@ -30,7 +30,11 @@ struct ContentView: View {
                         Spacer()
                         ScrollView() {
                             ForEach(self.document.games, id: \.id) { aGame in
-                                
+                                BoardView(tictactoeMove: aGame, length: SquareSide(geometry: geometry))
+                                    .onTapGesture {
+                                        theTicTacToeMove = TicTacToeMove(copyBoard: aGame)
+                                        isBoardView = false
+                                    }
                             }
                         }
                         Spacer()
@@ -46,7 +50,12 @@ struct ContentView: View {
                         }
                 }
             }else{ // is not isBoardView
-                
+                Text("EditView")
+                    .onTapGesture {
+                        theTicTacToeMove.index = Int(document.games.count)
+                        self.document.games.append(theTicTacToeMove)
+                        self.isBoardView = true
+                    }
             }
         }
     }
