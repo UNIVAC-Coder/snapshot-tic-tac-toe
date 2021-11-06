@@ -14,8 +14,40 @@
 import SwiftUI
 
 struct SquareView: View {
+    var length: CGFloat
+    var aBoard: [Int]
+    var index: Int
+    
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        VStack(spacing: 0.0) {
+            HStack(spacing: 0.0) {
+                ZStack {
+                    Text("")
+                        .frame(width: length, height: length, alignment: .center)
+                        .background(Color(aBoard[index] == 3 ? "Green" : "BGColor"))
+                    if aBoard[index] == 1 {
+                        Text("X")
+                            .frame(width: length * 0.9, height: length * 0.9, alignment: .center)
+                            .foregroundColor(Color("Text"))
+                            .background(Color("BGColor"))
+                            .font(.system(size: length * 0.85))
+                    }
+                    if aBoard[index] == 2 {
+                        Text("O")
+                            .frame(width: length * 0.9, height: length * 0.9, alignment: .center)
+                            .foregroundColor(Color("Text"))
+                            .background(Color("BGColor"))
+                            .font(.system(size: length * 0.85))
+                    }
+                } // end ZStack
+                Text("")
+                    .frame(width: length * 0.09, height: length * 1.09, alignment: .leading)
+                    .background(Color(index == 0 || index == 1 || index == 3 || index == 4 || index == 6 || index == 7 ? "DividerColor" : "BGColor"))
+            }
+            Text("")
+                .frame(width: length * 1.09, height: length * 0.08, alignment: .top)
+                .background(Color(index < 6 ? "DividerColor" : "BGColor"))
+        }
     }
 }
 /*

@@ -16,18 +16,18 @@ import Foundation
 class TicTacToeMove: Identifiable, Codable {
     
     var id                  :UUID = UUID()
-    var board               :String = "         >         "
+    var board               :[Int] = [0,0,0,0,0,0,0,0,0] // 0 is blank, 1 is X, 2 is O, 3 is next move.
     var comment             :String = "X moves first."
     var index               :Int = 0
     
     init() {
         self.id = UUID()
-        self.board = "         >         "
+        self.board = [0,1,2,3,0,0,0,0,0]
         self.comment = "X moves first."
         self.index = 0
     }
     
-    init(id: UUID, board: String, comment: String, index: Int) {
+    init(id: UUID, board: [Int], comment: String, index: Int) {
         self.id = id
         self.board = board
         self.comment = comment
@@ -36,7 +36,7 @@ class TicTacToeMove: Identifiable, Codable {
     
     init(copyBoard: TicTacToeMove) {
         self.id = UUID()
-        self.board = String(copyBoard.board)
+        self.board = Array(copyBoard.board)
         self.comment = String(copyBoard.comment)
         self.index = Int(copyBoard.index)
     }

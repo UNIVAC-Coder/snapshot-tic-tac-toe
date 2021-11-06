@@ -31,8 +31,15 @@ struct BoardView: View {
                 Text(tictactoeMove.comment)
                     .frame(height: length * 0.75, alignment: .center)
                     .font(.system(size: length * 0.5))
-                Text(tictactoeMove.board)
-                    .frame(height: length, alignment: .center)
+                VStack(spacing: 0.0) {
+                    ForEach([0,3,6], id: \.self) { row in
+                        HStack(spacing: 0.0) {
+                            ForEach((0...2), id: \.self) { col in
+                                SquareView(length: length, aBoard: tictactoeMove.board, index: row + col)
+                            }
+                        }
+                    }
+                }
             }
         }
     }
