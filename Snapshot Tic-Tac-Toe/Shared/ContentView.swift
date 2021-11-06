@@ -40,7 +40,7 @@ struct ContentView: View {
                         Spacer()
                     }
                 }else{
-                    Text("Tap here to add first Tic-Tac-Toe move.")
+                    Text("Tap here to add first Tic-Tac-Toe board.")
                         .frame(width: 200.0, height: 50.0, alignment: .center)
                         .background(Color("BGColor"))
                         .onTapGesture {
@@ -50,12 +50,7 @@ struct ContentView: View {
                         }
                 }
             }else{ // is not isBoardView
-                Text("EditView")
-                    .onTapGesture {
-                        theTicTacToeMove.index = Int(document.games.count)
-                        self.document.games.append(theTicTacToeMove)
-                        self.isBoardView = true
-                    }
+                EditView(aTicTacToeMove: $theTicTacToeMove, isBoardView: $isBoardView, document: $document, length: SquareSide(geometry: geometry))
             }
         }
     }
@@ -67,7 +62,7 @@ struct ContentView: View {
             var a = geometryWidth
             let b = geometryHeight - (geometryHeight / 9.0)
             if a > b { a = b }
-            geometryLength = a / 4.0 //there are 4 columns, 4 Rows on this screen
+            geometryLength = a / 4.0 //there are 4 columns, 5 Rows on this screen
         }
         return geometryLength
     }

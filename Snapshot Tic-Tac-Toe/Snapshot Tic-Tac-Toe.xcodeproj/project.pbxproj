@@ -23,6 +23,8 @@
 		E29523892731AEA300F418F4 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E29523722731AEA200F418F4 /* ContentView.swift */; };
 		E295238A2731AEA300F418F4 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E29523732731AEA300F418F4 /* Assets.xcassets */; };
 		E295238B2731AEA300F418F4 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E29523732731AEA300F418F4 /* Assets.xcassets */; };
+		E2DDDE762736FB6300FE4DED /* SquareViewEdit.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2DDDE752736FB6300FE4DED /* SquareViewEdit.swift */; };
+		E2DDDE772736FB6300FE4DED /* SquareViewEdit.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2DDDE752736FB6300FE4DED /* SquareViewEdit.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -40,6 +42,7 @@
 		E29523822731AEA300F418F4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		E29523832731AEA300F418F4 /* macOS.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = macOS.entitlements; sourceTree = "<group>"; };
 		E29523942731B5FE00F418F4 /* Snapshot Tic-Tac-Toe (iOS).entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "Snapshot Tic-Tac-Toe (iOS).entitlements"; sourceTree = "<group>"; };
+		E2DDDE752736FB6300FE4DED /* SquareViewEdit.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SquareViewEdit.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -80,6 +83,7 @@
 				E203085E2734546000BCFEA8 /* EditView.swift */,
 				E20308612734548300BCFEA8 /* BoardView.swift */,
 				E20308642734559C00BCFEA8 /* SquareView.swift */,
+				E2DDDE752736FB6300FE4DED /* SquareViewEdit.swift */,
 				E203085B273426D100BCFEA8 /* TicTacToeMove.swift */,
 				E29523732731AEA300F418F4 /* Assets.xcassets */,
 			);
@@ -211,6 +215,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				E29523842731AEA300F418F4 /* Snapshot_Tic_Tac_ToeApp.swift in Sources */,
+				E2DDDE762736FB6300FE4DED /* SquareViewEdit.swift in Sources */,
 				E203085F2734546000BCFEA8 /* EditView.swift in Sources */,
 				E203085C273426D100BCFEA8 /* TicTacToeMove.swift in Sources */,
 				E20308622734548300BCFEA8 /* BoardView.swift in Sources */,
@@ -225,6 +230,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				E29523852731AEA300F418F4 /* Snapshot_Tic_Tac_ToeApp.swift in Sources */,
+				E2DDDE772736FB6300FE4DED /* SquareViewEdit.swift in Sources */,
 				E20308602734546000BCFEA8 /* EditView.swift in Sources */,
 				E203085D273426D100BCFEA8 /* TicTacToeMove.swift in Sources */,
 				E20308632734548300BCFEA8 /* BoardView.swift in Sources */,

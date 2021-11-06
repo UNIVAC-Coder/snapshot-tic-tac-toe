@@ -18,19 +18,20 @@ struct BoardView: View {
     var length: CGFloat
     
     var body: some View {
-        HStack {
+        //HStack {
+            //Spacer()
             VStack {
                 Text("")
-                    .frame(width: length * 11.0, height: 3.0, alignment: .center)
+                    .frame(width: length * 4.0, height: 3.0, alignment: .center)
                     .background(Color("DividerColor"))
                     .padding()
-                Text("\(tictactoeMove.index)")
-                    .frame(width: length * 11.0, height: length * 0.45, alignment: .center)
+                Text("#\(tictactoeMove.index)")
+                    .frame(width: length * 4.0, height: length * 0.2, alignment: .center)
                     .foregroundColor(Color("DividerColor"))
-                    .font(.system(size: length * 0.4))
+                    .font(.system(size: length * 0.2))
                 Text(tictactoeMove.comment)
-                    .frame(height: length * 0.75, alignment: .center)
-                    .font(.system(size: length * 0.5))
+                    .frame(width: length * 3.3, height: length * 0.3, alignment: .center)
+                    .font(.system(size: length * 0.2))
                 VStack(spacing: 0.0) {
                     ForEach([0,3,6], id: \.self) { row in
                         HStack(spacing: 0.0) {
@@ -41,7 +42,8 @@ struct BoardView: View {
                     }
                 }
             }
-        }
+            //Spacer()
+       // }
     }
 }
 /*

@@ -1,5 +1,5 @@
 //
-//  SquareView.swift
+//  SquareViewEdit.swift
 //  Snapshot Tic-Tac-Toe
 //  Creative Commons Attribution 4.0 International Public License
 //  Creative Commons may be contacted at creativecommons.org.
@@ -8,12 +8,12 @@
 //  Thomas Cavalli may be contacted at thomascavalli.com
 //
 //  List of What Changed (by Who and When):
-//  Created by Thomas Cavalli on 11/4/21.
+//  Created by Thomas Cavalli on 11/6/21.
 //
 
 import SwiftUI
 
-struct SquareView: View {
+struct SquareViewEdit: View {
     var length: CGFloat
     var aBoard: [Int]
     var index: Int
