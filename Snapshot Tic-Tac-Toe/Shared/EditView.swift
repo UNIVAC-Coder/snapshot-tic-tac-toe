@@ -19,6 +19,7 @@ struct EditView: View {
     @Binding var document: Snapshot_Tic_Tac_ToeDocument
     var length: CGFloat
     @State private var message: String = "Editing"
+    @State private var notGreen: Bool = true
     
     var body: some View {
         HStack {
@@ -38,7 +39,7 @@ struct EditView: View {
                     ForEach([0,3,6], id: \.self) { row in
                         HStack(spacing: 0.0) {
                             ForEach((0...2), id: \.self) { col in
-                                SquareViewEdit(length: length, aBoard: aTicTacToeMove.board, index: row + col)
+                                SquareViewEdit(length: length, aBoard: $aTicTacToeMove, index: row + col, notGreen: $notGreen)
                             }
                         }
                     }
@@ -55,6 +56,7 @@ struct EditView: View {
                             document.games[i].index = Int(i)
                         }
                     }
+                    .disabled(notGreen)
                     Button("Copy Board") {
                         message = "Copied"
                         aTicTacToeMove.index = Int(document.games.count)
@@ -62,7 +64,7 @@ struct EditView: View {
                     Button("End Editing") {
                         isBoardView = true
                     }
-                    Button("Cancel") {
+                    Button("Cancel Changes") {
                         isBoardView = true
                     }
                 }
