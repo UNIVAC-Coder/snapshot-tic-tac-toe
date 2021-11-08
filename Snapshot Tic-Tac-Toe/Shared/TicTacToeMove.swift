@@ -16,13 +16,13 @@ import Foundation
 class TicTacToeMove: Identifiable, Codable {
     
     var id                  :UUID = UUID()
-    var board               :[Int] = [0,0,0,0,0,0,0,0,0] // 0 is blank, 1 is green boarder, 2 is X, 3 is O.
+    var board               :[Int] = [4,4,4,4,4,4,4,4,4] // 1 is green boarder, 2 is X, 3 is O, 4 is blank
     var comment             :String = "X moves first."
     var index               :Int = 0
     
     init() {
         self.id = UUID()
-        self.board = [0,0,0,0,0,0,0,0,0]
+        self.board = [4,4,4,4,4,4,4,4,4]
         self.comment = "X moves first."
         self.index = 0
     }

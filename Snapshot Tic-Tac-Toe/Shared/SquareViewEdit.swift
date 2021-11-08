@@ -18,6 +18,7 @@ struct SquareViewEdit: View {
     @Binding var aBoard: TicTacToeMove
     var index: Int
     @Binding var notGreen: Bool
+    @Binding var document: Snapshot_Tic_Tac_ToeDocument
     
     var body: some View {
         VStack(spacing: 0.0) {
@@ -26,6 +27,9 @@ struct SquareViewEdit: View {
                     Text("")
                         .frame(width: length, height: length, alignment: .center)
                         .background(Color(aBoard.board[index] == 1 ? "Green" : "BGColor"))
+                    Text("")
+                        .frame(width: length * 0.9, height: length * 0.9, alignment: .center)
+                        .background(Color("BGColor"))
                     if aBoard.board[index] == 2 {
                         Text("X")
                             .frame(width: length * 0.9, height: length * 0.9, alignment: .center)
@@ -42,22 +46,40 @@ struct SquareViewEdit: View {
                     }
                 } // end ZStack
                 .onTapGesture { // on ZStack
-                    if aBoard.board[index] == 0 { // is blank, tapped, so change to green boarder
+                    if aBoard.board[index] == 4 { // is blank, tapped, so change to green boarder
                         for i in aBoard.board.indices { // but first, erase any other existing green boarder.
-                            if aBoard.board[i] == 1 { aBoard.board[i] = 0 }
+                            if aBoard.board[i] == 1 { aBoard.board[i] = 4 }
                         }
-                    }
-                    aBoard.board[index] += 1 // 0 is blank, 1 is green boarder, 2 is X and 3 is O
-                    if aBoard.board[index] > 2 {
-                        aBoard.board[index] = 0
+                        aBoard.board[index] = 1
+                    }else{
+                        aBoard.board[index] += 1 // 1 is green boarder, 2 is X, 3 is O, 4 is blank.
+                        if aBoard.board[index] > 4 {
+                            aBoard.board[index] = 1
+                        }
                     }
                     DispatchQueue.main.async {
                         notGreen = true
+                        var Xs: Int = 0
+                        var Os: Int = 0
                         for i in aBoard.board.indices {
-                            if aBoard.board[i] == 1 {
+                            switch aBoard.board[i] {
+                            case 1:
                                 notGreen = false
+                                break
+                            case 2:
+                                Xs += 1
+                                break
+                            case 3:
+                                Os += 1
+                                break
+                            default:
+                                break
                             }
                         }
+                        if Os > Xs {
+                            notGreen = true
+                        }
+                        document.games[0] = document.games[0]
                     }
                 }
                 Text("")

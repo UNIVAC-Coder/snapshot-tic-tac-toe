@@ -25,6 +25,9 @@ struct SquareView: View {
                     Text("")
                         .frame(width: length, height: length, alignment: .center)
                         .background(Color(aBoard[index] == 1 ? "Green" : "BGColor"))
+                    Text("")
+                        .frame(width: length * 0.9, height: length * 0.9, alignment: .center)
+                        .background(Color("BGColor"))
                     if aBoard[index] == 2 {
                         Text("X")
                             .frame(width: length * 0.9, height: length * 0.9, alignment: .center)

@@ -39,7 +39,7 @@ struct EditView: View {
                     ForEach([0,3,6], id: \.self) { row in
                         HStack(spacing: 0.0) {
                             ForEach((0...2), id: \.self) { col in
-                                SquareViewEdit(length: length, aBoard: $aTicTacToeMove, index: row + col, notGreen: $notGreen)
+                                SquareViewEdit(length: length, aBoard: $aTicTacToeMove, index: row + col, notGreen: $notGreen, document: $document)
                             }
                         }
                     }
@@ -60,17 +60,39 @@ struct EditView: View {
                     Button("Copy Board") {
                         message = "Copied"
                         aTicTacToeMove.index = Int(document.games.count)
+                        aTicTacToeMove.id = UUID()
                     }
                     Button("End Editing") {
+                        sortGames()
                         isBoardView = true
                     }
                     Button("Cancel Changes") {
+                        sortGames()
                         isBoardView = true
                     }
                 }
             }
             Spacer()
         }
+    }
+    
+    func sortGames() {
+        let games = document.games.sorted(by: { firstTTT, secondTTT in
+            for i in 0...8 {
+                if firstTTT.board[i] < secondTTT.board[i] {
+                    return true
+                }else{
+                    if firstTTT.board[i] > secondTTT.board[i] {
+                        return false
+                    }
+                }
+            }
+            return true
+        })
+        for i in games.indices {
+            games[i].index = i
+        }
+        document.games = games
     }
 }
 /*
