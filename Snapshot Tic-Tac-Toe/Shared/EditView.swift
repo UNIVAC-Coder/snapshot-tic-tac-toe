@@ -20,63 +20,72 @@ struct EditView: View {
     var length: CGFloat
     @State private var message: String = "Editing"
     @State private var notGreen: Bool = true
+    @State private var isEdit: Bool = true // sorting when false.
     
     var body: some View {
-        HStack {
-            Spacer()
-            VStack {
-                Text(message + " #\(aTicTacToeMove.index)")
-                    .frame(width: length * 4.0, height: length * 0.2, alignment: .center)
-                    .foregroundColor(Color("DividerColor"))
-                    .font(.system(size: length * 0.2))
-                TextEditor(text: $aTicTacToeMove.comment)
-                    .frame(width: length * 3.3, height: length * 0.3, alignment: .center)
-                    .font(.system(size: length * 0.2))
-                    .foregroundColor(Color("DividerColor"))
-                    .background(Color("BGColor"))
-                    .multilineTextAlignment(.center)
-                VStack(spacing: 0.0) {
-                    ForEach([0,3,6], id: \.self) { row in
-                        HStack(spacing: 0.0) {
-                            ForEach((0...2), id: \.self) { col in
-                                SquareViewEdit(length: length, aBoard: $aTicTacToeMove, index: row + col, notGreen: $notGreen, document: $document)
+        if isEdit {
+            HStack {
+                Spacer()
+                VStack {
+                    Text(message + " #\(aTicTacToeMove.index)")
+                        .frame(width: length * 4.0, height: length * 0.2, alignment: .center)
+                        .foregroundColor(Color("DividerColor"))
+                        .font(.system(size: length * 0.2))
+                    TextEditor(text: $aTicTacToeMove.comment)
+                        .frame(width: length * 3.3, height: length * 0.3, alignment: .center)
+                        .font(.system(size: length * 0.2))
+                        .foregroundColor(Color("DividerColor"))
+                        .background(Color("BGColor"))
+                        .multilineTextAlignment(.center)
+                    VStack(spacing: 0.0) {
+                        ForEach([0,3,6], id: \.self) { row in
+                            HStack(spacing: 0.0) {
+                                ForEach((0...2), id: \.self) { col in
+                                    SquareViewEdit(length: length, aBoard: $aTicTacToeMove, index: row + col, notGreen: $notGreen, document: $document)
+                                }
                             }
                         }
                     }
-                }
-                HStack {
-                    Button("Save Board") {
-                        message = "Saved"
-                        if aTicTacToeMove.index == document.games.count {
-                            document.games.append(TicTacToeMove(copyBoard: aTicTacToeMove))
-                        }else{
-                            document.games[aTicTacToeMove.index] = aTicTacToeMove
+                    HStack {
+                        Button("Save Board") {
+                            message = "Saved"
+                            if aTicTacToeMove.index == document.games.count {
+                                document.games.append(TicTacToeMove(copyBoard: aTicTacToeMove))
+                            }else{
+                                document.games[aTicTacToeMove.index] = aTicTacToeMove
+                            }
+                            for i in document.games.indices {
+                                document.games[i].index = Int(i)
+                            }
                         }
-                        for i in document.games.indices {
-                            document.games[i].index = Int(i)
+                        .disabled(notGreen)
+                        Button("Copy Board") {
+                            message = "Copied"
+                            aTicTacToeMove.index = Int(document.games.count)
+                            aTicTacToeMove.id = UUID()
+                        }
+                        Button("End Editing") {
+                            sortGames()
+                            isBoardView = true
+                        }
+                        Button("Cancel Changes") {
+                            sortGames()
+                            isBoardView = true
+                        }
+                        Button("Sort") {
+                            isEdit = false
                         }
                     }
-                    .disabled(notGreen)
-                    Button("Copy Board") {
-                        message = "Copied"
-                        aTicTacToeMove.index = Int(document.games.count)
-                        aTicTacToeMove.id = UUID()
-                    }
-                    Button("End Editing") {
-                        sortGames()
-                        isBoardView = true
-                    }
-                    Button("Cancel Changes") {
-                        sortGames()
-                        isBoardView = true
-                    }
                 }
+                Spacer()
             }
-            Spacer()
+        }else{ // false isEdit
+            SortView(isBoardView: $isBoardView, document: $document, isEdit: $isEdit)
         }
     }
     
-    func sortGames() {
+    func sortGames() { // sort in order, only Xs.
+        message = "Sorting"
         let games = document.games.sorted(by: { firstTTT, secondTTT in
             for i in 0...8 {
                 if firstTTT.board[i] < secondTTT.board[i] {

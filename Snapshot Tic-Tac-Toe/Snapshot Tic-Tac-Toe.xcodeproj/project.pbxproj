@@ -15,6 +15,8 @@
 		E20308632734548300BCFEA8 /* BoardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E20308612734548300BCFEA8 /* BoardView.swift */; };
 		E20308652734559C00BCFEA8 /* SquareView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E20308642734559C00BCFEA8 /* SquareView.swift */; };
 		E20308662734559C00BCFEA8 /* SquareView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E20308642734559C00BCFEA8 /* SquareView.swift */; };
+		E246D039273B125600DE5BB3 /* SortView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E246D038273B125600DE5BB3 /* SortView.swift */; };
+		E246D03A273B125600DE5BB3 /* SortView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E246D038273B125600DE5BB3 /* SortView.swift */; };
 		E29523842731AEA300F418F4 /* Snapshot_Tic_Tac_ToeApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = E29523702731AEA200F418F4 /* Snapshot_Tic_Tac_ToeApp.swift */; };
 		E29523852731AEA300F418F4 /* Snapshot_Tic_Tac_ToeApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = E29523702731AEA200F418F4 /* Snapshot_Tic_Tac_ToeApp.swift */; };
 		E29523862731AEA300F418F4 /* Snapshot_Tic_Tac_ToeDocument.swift in Sources */ = {isa = PBXBuildFile; fileRef = E29523712731AEA200F418F4 /* Snapshot_Tic_Tac_ToeDocument.swift */; };
@@ -32,6 +34,7 @@
 		E203085E2734546000BCFEA8 /* EditView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditView.swift; sourceTree = "<group>"; };
 		E20308612734548300BCFEA8 /* BoardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoardView.swift; sourceTree = "<group>"; };
 		E20308642734559C00BCFEA8 /* SquareView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SquareView.swift; sourceTree = "<group>"; };
+		E246D038273B125600DE5BB3 /* SortView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SortView.swift; sourceTree = "<group>"; };
 		E29523702731AEA200F418F4 /* Snapshot_Tic_Tac_ToeApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Snapshot_Tic_Tac_ToeApp.swift; sourceTree = "<group>"; };
 		E29523712731AEA200F418F4 /* Snapshot_Tic_Tac_ToeDocument.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Snapshot_Tic_Tac_ToeDocument.swift; sourceTree = "<group>"; };
 		E29523722731AEA200F418F4 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -81,6 +84,7 @@
 				E29523712731AEA200F418F4 /* Snapshot_Tic_Tac_ToeDocument.swift */,
 				E29523722731AEA200F418F4 /* ContentView.swift */,
 				E203085E2734546000BCFEA8 /* EditView.swift */,
+				E246D038273B125600DE5BB3 /* SortView.swift */,
 				E20308612734548300BCFEA8 /* BoardView.swift */,
 				E20308642734559C00BCFEA8 /* SquareView.swift */,
 				E2DDDE752736FB6300FE4DED /* SquareViewEdit.swift */,
@@ -220,6 +224,7 @@
 				E203085C273426D100BCFEA8 /* TicTacToeMove.swift in Sources */,
 				E20308622734548300BCFEA8 /* BoardView.swift in Sources */,
 				E20308652734559C00BCFEA8 /* SquareView.swift in Sources */,
+				E246D039273B125600DE5BB3 /* SortView.swift in Sources */,
 				E29523862731AEA300F418F4 /* Snapshot_Tic_Tac_ToeDocument.swift in Sources */,
 				E29523882731AEA300F418F4 /* ContentView.swift in Sources */,
 			);
@@ -235,6 +240,7 @@
 				E203085D273426D100BCFEA8 /* TicTacToeMove.swift in Sources */,
 				E20308632734548300BCFEA8 /* BoardView.swift in Sources */,
 				E20308662734559C00BCFEA8 /* SquareView.swift in Sources */,
+				E246D03A273B125600DE5BB3 /* SortView.swift in Sources */,
 				E29523872731AEA300F418F4 /* Snapshot_Tic_Tac_ToeDocument.swift in Sources */,
 				E29523892731AEA300F418F4 /* ContentView.swift in Sources */,
 			);
