@@ -77,7 +77,7 @@ struct SortView: View {
                             third = ""
                             forth = ""
                         }
-                        .disabled(first == "Green")
+                        .disabled(first == "Green" || first == "")
                         Button("  X  ") {
                             sortBy[1] = 2
                             sortBy[2] = 0
@@ -86,16 +86,16 @@ struct SortView: View {
                             third = ""
                             forth = ""
                         }
-                        .disabled(first == "X")
+                        .disabled(first == "X" || first == "")
                         Button("  O  ") {
                             sortBy[1] = 3
                             sortBy[2] = 0
                             sortBy[3] = 0
-                            second = "  O  "
+                            second = "O"
                             third = ""
                             forth = ""
                         }
-                        .disabled(first == "O")
+                        .disabled(first == "O" || first == "")
                         Button("Blank") {
                             sortBy[1] = 4
                             sortBy[2] = 0
@@ -104,21 +104,102 @@ struct SortView: View {
                             third = ""
                             forth = ""
                         }
-                        .disabled(first == "Blank")
+                        .disabled(first == "Blank" || first == "")
                         Text(second)
                             .font(.system(size: 20.0))
                             .background(Color("BGColor"))
                             .foregroundColor(Color("DividerColor"))
                         Spacer()
                     }
+                    VStack {
+                        Text("Third")
+                        Button("Green") {
+                            sortBy[2] = 1
+                            third = "Green"
+                            forth = FindLast()
+                        }
+                        .disabled((first == "Green" || second == "Green") || second == "")
+                        Button("  X  ") {
+                            sortBy[2] = 2
+                            third = "X"
+                            forth = FindLast()
+                        }
+                        .disabled((first == "X" || second == "X") || second == "")
+                        Button("  O  ") {
+                            sortBy[2] = 3
+                            third = "O"
+                            forth = FindLast()
+                        }
+                        .disabled((first == "O" || second == "O") || second == "")
+                        Button("Blank") {
+                            sortBy[2] = 4
+                            third = "Blank"
+                            forth = FindLast()
+                        }
+                        .disabled((first == "Blank" || second == "Blank") || second == "")
+                        Text(third)
+                            .font(.system(size: 20.0))
+                            .background(Color("BGColor"))
+                            .foregroundColor(Color("DividerColor"))
+                        Spacer()
+                    }
+                    VStack {
+                        Text("Fourth")
+                        Button("Green") { }
+                            .disabled(true)
+                        Button("  X  ") { }
+                            .disabled(true)
+                        Button("  O  ") { }
+                            .disabled(true)
+                        Button("Blank") { }
+                            .disabled(true)
+                        Text(forth)
+                            .font(.system(size: 20.0))
+                            .background(Color("BGColor"))
+                            .foregroundColor(Color("DividerColor"))
+                        Spacer()
+                    }
                 }
-                
+                HStack {
+                    Spacer()
+                    Button("Cancel Sort") {
+                        isEdit = true
+                    }
+                    .padding()
+                    Button("Sort the games") {
+                        SortGames()
+                        isBoardView = true
+                    }
+                    .padding()
+                    .disabled(sortBy[3] == 0)
+                    Spacer()
+                }
+                Spacer()
             }
             Spacer()
         }
-        Button("back") {
+        Button("Back") {
             isEdit = true
         }
+    }
+    func FindLast() -> String {
+        if sortBy[0] != 0 && sortBy[1] != 0 && sortBy[2] != 0 {
+            sortBy[3] = 10 - sortBy[0] - sortBy[1] - sortBy[2]
+            if sortBy[3] == 1 { return "Green" }
+            if sortBy[3] == 2 { return "X" }
+            if sortBy[3] == 3 { return "O" }
+            if sortBy[3] == 4 { return "Blank"}
+            sortBy = [1,2,3,4]
+            first = "Green"
+            second = "X"
+            third = "O"
+            return "Blank"
+        }else{
+            return ""
+        }
+    }
+    func SortGames() {
+        
     }
 }
 /*
