@@ -186,7 +186,7 @@ struct SortView: View {
     func FindLast() -> String {
         if sortBy[1] != 0 && sortBy[2] != 0 && sortBy[3] != 0 {
             sortBy[4] = 10 - sortBy[1] - sortBy[2] - sortBy[3]
-            for i in 1...4 { sortX[i] = sortBy[i] }
+            for i in 1...4 { sortX[sortBy[i]] = i}
             if sortBy[4] == 1 { return "Green" }
             if sortBy[4] == 2 { return "X" }
             if sortBy[4] == 3 { return "O" }

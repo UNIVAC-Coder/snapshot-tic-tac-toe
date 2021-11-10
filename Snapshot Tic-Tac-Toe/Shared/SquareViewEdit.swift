@@ -76,7 +76,9 @@ struct SquareViewEdit: View {
                                 break
                             }
                         }
-                        if (Os + 1) != Xs {
+                        if (Os + 1) == Xs || Os == Xs {
+                            notGreen = false
+                        }else{
                             notGreen = true
                         }
                         document.games[0] = document.games[0]
