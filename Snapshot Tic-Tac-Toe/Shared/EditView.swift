@@ -17,6 +17,7 @@ struct EditView: View {
     @Binding var aTicTacToeMove: TicTacToeMove
     @Binding var isBoardView: Bool
     @Binding var document: Snapshot_Tic_Tac_ToeDocument
+    @Binding var newDuplicates: [Int]
     var length: CGFloat
     @State private var message: String = "Editing"
     @State private var notGreen: Bool = true
@@ -65,43 +66,22 @@ struct EditView: View {
                             aTicTacToeMove.id = UUID()
                         }
                         Button("End Editing") {
-                            sortGames()
                             isBoardView = true
                         }
                         Button("Cancel Changes") {
-                            sortGames()
                             isBoardView = true
                         }
                         Button("Sort") {
                             isEdit = false
                         }
                     }
+                    
                 }
                 Spacer()
             }
         }else{ // false isEdit
-            SortView(isBoardView: $isBoardView, document: $document, isEdit: $isEdit)
+            SortView(isBoardView: $isBoardView, document: $document, isEdit: $isEdit, newDuplicates: $newDuplicates)
         }
-    }
-    
-    func sortGames() { // sort in order, only Xs.
-        message = "Sorting"
-        let games = document.games.sorted(by: { firstTTT, secondTTT in
-            for i in 0...8 {
-                if firstTTT.board[i] < secondTTT.board[i] {
-                    return true
-                }else{
-                    if firstTTT.board[i] > secondTTT.board[i] {
-                        return false
-                    }
-                }
-            }
-            return true
-        })
-        for i in games.indices {
-            games[i].index = i
-        }
-        document.games = games
     }
 }
 /*

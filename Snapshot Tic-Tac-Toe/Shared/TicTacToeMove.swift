@@ -19,19 +19,22 @@ class TicTacToeMove: Identifiable, Codable {
     var board               :[Int] = [4,4,4,4,4,4,4,4,4] // 1 is green boarder, 2 is X, 3 is O, 4 is blank
     var comment             :String = "X moves first."
     var index               :Int = 0
+    var isSelected            :Bool = true
     
     init() {
         self.id = UUID()
         self.board = [4,4,4,4,4,4,4,4,4]
         self.comment = "X moves first."
         self.index = 0
+        self.isSelected = true
     }
     
-    init(id: UUID, board: [Int], comment: String, index: Int) {
+    init(id: UUID, board: [Int], comment: String, index: Int, selected: Bool) {
         self.id = id
         self.board = board
         self.comment = comment
         self.index = index
+        self.isSelected = selected
     }
     
     init(copyBoard: TicTacToeMove) {
@@ -39,5 +42,6 @@ class TicTacToeMove: Identifiable, Codable {
         self.board = Array(copyBoard.board)
         self.comment = String(copyBoard.comment)
         self.index = Int(copyBoard.index)
+        self.isSelected = Bool(copyBoard.isSelected)
     }
 }

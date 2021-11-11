@@ -21,23 +21,32 @@ struct ContentView: View {
     @Binding var document: Snapshot_Tic_Tac_ToeDocument
     @State private var isBoardView: Bool = true
     @State private var theTicTacToeMove: TicTacToeMove = TicTacToeMove()
+    @State private var newDuplicates: [Int] = []
     
     var body: some View {
         GeometryReader { geometry in
             if isBoardView {
                 if self.document.games.count > 0 {
-                    HStack {
-                        Spacer()
-                        ScrollView() {
-                            ForEach(self.document.games, id: \.id) { aGame in
-                                BoardView(tictactoeMove: aGame, length: SquareSide(geometry: geometry))
-                                    .onTapGesture {
-                                        theTicTacToeMove = TicTacToeMove(copyBoard: aGame)
-                                        isBoardView = false
-                                    }
-                            }
+                    VStack {
+                        if newDuplicates.count > 0 {
+                            Text("Duplicates are: " + newDuplicates.description)
                         }
-                        Spacer()
+                        HStack {
+                            Spacer()
+                            ScrollView() {
+                                ForEach(self.document.games, id: \.id) { aGame in
+                                    if aGame.isSelected {
+                                        BoardView(tictactoeMove: aGame, length: SquareSide(geometry: geometry))
+                                            .onTapGesture {
+                                                theTicTacToeMove = TicTacToeMove(copyBoard: aGame)
+                                                isBoardView = false
+                                            }
+                                            
+                                    }
+                                }
+                            }
+                            Spacer()
+                        }
                     }
                 }else{
                     Text("Tap here to add first Tic-Tac-Toe board.")
@@ -50,7 +59,7 @@ struct ContentView: View {
                         }
                 }
             }else{ // is not isBoardView
-                EditView(aTicTacToeMove: $theTicTacToeMove, isBoardView: $isBoardView, document: $document, length: SquareSide(geometry: geometry))
+                EditView(aTicTacToeMove: $theTicTacToeMove, isBoardView: $isBoardView, document: $document, newDuplicates: $newDuplicates, length: SquareSide(geometry: geometry))
             }
         }
     }
@@ -62,7 +71,7 @@ struct ContentView: View {
             var a = geometryWidth
             let b = geometryHeight - (geometryHeight / 9.0)
             if a > b { a = b }
-            geometryLength = a / 4.0 //there are 4 columns, 5 Rows on this screen
+            geometryLength = a / 5.0 //there are 4 columns, 5 Rows on this screen
         }
         return geometryLength
     }

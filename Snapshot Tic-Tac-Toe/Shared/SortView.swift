@@ -8,16 +8,22 @@
 import SwiftUI
 // 1 is green boarder, 2 is X, 3 is O, 4 is blank
 private var sortX: [Int] = [0,0,0,0,0]
+private var duplicates: [Int] = []
+private var numberXs: Int = 0 // any, max 4
+private var numberOs: Int = 0 // any, max 4
 
 struct SortView: View {
     @Binding var isBoardView: Bool
     @Binding var document: Snapshot_Tic_Tac_ToeDocument
     @Binding var isEdit: Bool
+    @Binding var newDuplicates: [Int]
     @State private var sortBy: [Int] = [0,0,0,0,0]
     @State private var first: String = ""
     @State private var second: String = ""
     @State private var third: String = ""
     @State private var forth: String = ""
+    @State private var numberXs: Int = 0 // any, max 4
+    @State private var numberOs: Int = 0 // any, max 4
     
     var body: some View {
         HStack {
@@ -27,7 +33,7 @@ struct SortView: View {
                     .font(.system(size: 30.0))
                     .background(Color("BGColor"))
                     .foregroundColor(Color("DividerColor"))
-                Text("The stored games of tic-tac-toe can be sorted using 1 of 16 possible sequences.  Since there are four possible board pieces: the X, the O, blank and green boarder (next move), that gives us 16 possible sequences to sort.  Choose the pieces that you want to appear first, second, third and last from the list below. The sorting will begin immediately   For example, choose 'X, O, Green, Blank, will sort games with X to appear first in sequence from the top of the game across then second line across and finally third line across. Equal values of X will then sort on O; equal values of O will sort on Green; then Blank lastly.")
+                Text("The stored games of tic-tac-toe can be sorted using 1 of 16 possible sequences.  Since there are four possible board pieces: the X, the O, blank and green boarder (next move), that gives us 16 possible sequences to sort on.  Choose the piece that you want to appear first, second, third and last from the list below. The sorting will begin when the 'Sort the Games' is clicked.   For example, choose 'X, O, Green, Blank, will sort games with X to appear first in sequence from the top of the game across then second line across and finally third line across. Equal values of X will then sort on O; equal values of O will sort on Green; then Blank lastly.  Also, The number of X's and O's can be specified during the sort.  Only those games that match the numbers will be displayed in the scroll view to follow upon completion of the sort.  For exampe, select 'Three Xs' and 'Any Os' will scroll only games containing exactly three Xs and either two or three Os.")
                     .font(.system(size: 20.0))
                     .background(Color("BGColor"))
                     .foregroundColor(Color("DividerColor"))
@@ -160,6 +166,66 @@ struct SortView: View {
                             .foregroundColor(Color("DividerColor"))
                         Spacer()
                     }
+                    VStack {
+                        Text("  ")
+                    }
+                    .padding()
+                    VStack {
+                        Text("Number Xs")
+                        Button(" Any ") {
+                            numberXs = 0
+                            numberOs = 0
+                        }
+                        Button("One X") {
+                            numberXs = 1
+                            numberOs = 0
+                        }
+                        Button("Two Xs") {
+                            numberXs = 2
+                            numberOs = 0
+                        }
+                        Button("Three Xs") {
+                            numberXs = 3
+                            numberOs = 0
+                        }
+                        Button("Four Xs") {
+                            numberXs = 4
+                            numberOs = 0
+                        }
+                        Text(numberXs == 0 ? "Any Xs"  : "\(numberXs) Xs")
+                            .font(.system(size: 20.0))
+                            .background(Color("BGColor"))
+                            .foregroundColor(Color("DividerColor"))
+                        Spacer()
+                    }
+                    VStack {
+                        Text("Number Os")
+                        Button("Any Os") {
+                            numberOs = 0
+                        }
+                        .disabled((numberXs == 0))
+                        Button("One O") {
+                            numberOs = 1
+                        }
+                        .disabled(!(numberXs == 1 || numberXs == 2))
+                        Button("Two Os") {
+                            numberOs = 2
+                        }
+                        .disabled(!(numberXs == 2 || numberXs == 3))
+                        Button("Three Os") {
+                            numberOs = 3
+                        }
+                        .disabled(!(numberXs == 3 || numberXs == 4))
+                        Button("Four Xs") {
+                            numberOs = 4
+                        }
+                        .disabled(!(numberXs == 4))
+                        Text(numberOs == 0 ? "Any Os"  : "\(numberOs) Os")
+                            .font(.system(size: 20.0))
+                            .background(Color("BGColor"))
+                            .foregroundColor(Color("DividerColor"))
+                        Spacer()
+                    }
                 }
                 HStack {
                     Spacer()
@@ -179,6 +245,7 @@ struct SortView: View {
             }
             Spacer()
         }
+        .padding()
         Button("Back") {
             isEdit = true
         }
@@ -202,6 +269,8 @@ struct SortView: View {
         }
     }
     func SortGames() {
+        duplicates.removeAll(keepingCapacity: true)
+        newDuplicates.removeAll(keepingCapacity: true)
         document.games.sort { firstTTT, secondTTT in
             for i in 0...8 {
                 if sortX[firstTTT.board[i]] < sortX[secondTTT.board[i]] {
@@ -212,10 +281,17 @@ struct SortView: View {
                     }
                 }
             }
+            duplicates.append(secondTTT.index)
             return false
         }
         for i in document.games.indices {
+            for j in duplicates.indices {
+                if document.games[i].index == duplicates[j] {
+                    newDuplicates.append(Int(i))
+                }
+            }
             document.games[i].index = Int(i)
+            document.games[i].isSelected = true
         }
     }
 }

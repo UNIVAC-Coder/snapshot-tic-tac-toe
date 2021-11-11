@@ -24,7 +24,7 @@ struct Snapshot_Tic_Tac_ToeDocument: FileDocument {
     var games: [TicTacToeMove]
 
     init() {
-        self.games = [TicTacToeMove(id: UUID(), board: [4,4,4,4,4,4,4,4,4], comment: "X moves first", index: 0) ]  
+        self.games = [TicTacToeMove(id: UUID(), board: [4,4,4,4,4,4,4,4,4], comment: "X moves first", index: 0, selected: true) ]  
     }
 
     static var readableContentTypes: [UTType] { [.snapshottictactoe] }
