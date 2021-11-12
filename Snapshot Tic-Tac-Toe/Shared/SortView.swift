@@ -20,7 +20,7 @@ struct SortView: View {
     @Binding var document: Snapshot_Tic_Tac_ToeDocument
     @Binding var isEdit: Bool
     @Binding var newDuplicates: [Int]
-    @Binding var numberSelected: Int
+    var length: CGFloat
     @State private var sortBy: [Int] = [0,0,0,0,0]
     @State private var first: String = ""
     @State private var second: String = ""
@@ -32,7 +32,7 @@ struct SortView: View {
     var body: some View {
         HStack {
             Spacer()
-            VStack {
+            VStack(spacing: 5.0) {
                 Text("Sort Tic-Tac-Toe games.")
                     .font(.system(size: 30.0))
                     .background(Color("BGColor"))
@@ -41,7 +41,7 @@ struct SortView: View {
                     .font(.system(size: 20.0))
                     .background(Color("BGColor"))
                     .foregroundColor(Color("DividerColor"))
-                HStack {
+                HStack(spacing: 10.0) {
                     VStack {
                         Text("First")
                         Button("Green") {
@@ -76,7 +76,6 @@ struct SortView: View {
                             .font(.system(size: 20.0))
                             .background(Color("BGColor"))
                             .foregroundColor(Color("DividerColor"))
-                        Spacer()
                     }
                     VStack {
                         Text("Second")
@@ -120,7 +119,6 @@ struct SortView: View {
                             .font(.system(size: 20.0))
                             .background(Color("BGColor"))
                             .foregroundColor(Color("DividerColor"))
-                        Spacer()
                     }
                     VStack {
                         Text("Third")
@@ -152,7 +150,6 @@ struct SortView: View {
                             .font(.system(size: 20.0))
                             .background(Color("BGColor"))
                             .foregroundColor(Color("DividerColor"))
-                        Spacer()
                     }
                     VStack {
                         Text("Fourth")
@@ -168,12 +165,10 @@ struct SortView: View {
                             .font(.system(size: 20.0))
                             .background(Color("BGColor"))
                             .foregroundColor(Color("DividerColor"))
-                        Spacer()
                     }
                     VStack {
                         Text("  ")
                     }
-                    .padding()
                     VStack {
                         Text("Number Xs")
                         Button("Zero Xs") {
@@ -204,7 +199,6 @@ struct SortView: View {
                             .font(.system(size: 20.0))
                             .background(Color("BGColor"))
                             .foregroundColor(Color("DividerColor"))
-                        Spacer()
                     }
                     VStack {
                         Text("Number Os")
@@ -236,7 +230,6 @@ struct SortView: View {
                             .font(.system(size: 20.0))
                             .background(Color("BGColor"))
                             .foregroundColor(Color("DividerColor"))
-                        Spacer()
                     }
                 }
                 HStack {
@@ -247,7 +240,6 @@ struct SortView: View {
                     .padding()
                     Button("Sort the games") {
                         anySelected = false
-                        numberSelected = 0
                         SortGames()
                         if anySelected {
                             isBoardView = true
@@ -264,9 +256,6 @@ struct SortView: View {
             Spacer()
         }
         .padding()
-        Button("Back") {
-            isEdit = true
-        }
     }
     func FindLast() -> String {
         if sortBy[1] != 0 && sortBy[2] != 0 && sortBy[3] != 0 {
@@ -327,7 +316,6 @@ struct SortView: View {
             }
             document.games[i].isSelected = selected
             anySelected = (anySelected || selected)
-            if selected { numberSelected += 1 }
         }
     }
 }
