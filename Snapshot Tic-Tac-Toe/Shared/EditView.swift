@@ -18,6 +18,7 @@ struct EditView: View {
     @Binding var isBoardView: Bool
     @Binding var document: Snapshot_Tic_Tac_ToeDocument
     @Binding var newDuplicates: [Int]
+    @Binding var numberSelected: Int
     var length: CGFloat
     @State private var message: String = "Editing"
     @State private var notGreen: Bool = true
@@ -79,7 +80,7 @@ struct EditView: View {
                 Spacer()
             }
         }else{ // false isEdit
-            SortView(isBoardView: $isBoardView, document: $document, isEdit: $isEdit, newDuplicates: $newDuplicates)
+            SortView(isBoardView: $isBoardView, document: $document, isEdit: $isEdit, newDuplicates: $newDuplicates, numberSelected: $numberSelected)
         }
     }
 }

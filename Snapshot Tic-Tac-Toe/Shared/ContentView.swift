@@ -22,15 +22,14 @@ struct ContentView: View {
     @State private var isBoardView: Bool = true
     @State private var theTicTacToeMove: TicTacToeMove = TicTacToeMove()
     @State private var newDuplicates: [Int] = []
+    @State private var numberSelected: Int = -1
     
     var body: some View {
         GeometryReader { geometry in
             if isBoardView {
                 if self.document.games.count > 0 {
                     VStack {
-                        if newDuplicates.count > 0 {
-                            Text("Duplicates are: " + newDuplicates.description)
-                        }
+                        Text(messages())
                         HStack {
                             Spacer()
                             ScrollView() {
@@ -59,7 +58,7 @@ struct ContentView: View {
                         }
                 }
             }else{ // is not isBoardView
-                EditView(aTicTacToeMove: $theTicTacToeMove, isBoardView: $isBoardView, document: $document, newDuplicates: $newDuplicates, length: SquareSide(geometry: geometry))
+                EditView(aTicTacToeMove: $theTicTacToeMove, isBoardView: $isBoardView, document: $document, newDuplicates: $newDuplicates, numberSelected: $numberSelected, length: SquareSide(geometry: geometry))
             }
         }
     }
@@ -74,6 +73,12 @@ struct ContentView: View {
             geometryLength = a / 5.0 //there are 4 columns, 5 Rows on this screen
         }
         return geometryLength
+    }
+    func messages() -> String {
+        var abc = numberSelected == -1 ? "All of " : "\(numberSelected) of "
+        abc += "\(document.games.count) games selected.  "
+        abc += newDuplicates.count == 0 ? "No Duplicates." : "Duplicates are: " + newDuplicates.description
+        return abc
     }
 }
 /*
