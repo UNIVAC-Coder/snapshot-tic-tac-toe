@@ -63,7 +63,6 @@ struct EditView: View {
                         Button("Copy Board") {
                             message = "Copied"
                             aTicTacToeMove.index = Int(document.games.count)
-                            aTicTacToeMove.id = UUID()
                         }
                         Button("End Editing") {
                             isBoardView = true

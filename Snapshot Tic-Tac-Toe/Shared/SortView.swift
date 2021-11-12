@@ -9,8 +9,11 @@ import SwiftUI
 // 1 is green boarder, 2 is X, 3 is O, 4 is blank
 private var sortX: [Int] = [0,0,0,0,0]
 private var duplicates: [Int] = []
-private var numberXs: Int = 0 // any, max 4
-private var numberOs: Int = 0 // any, max 4
+private var countXs: Int = 0
+private var countOs: Int = 0
+private var selected: Bool = true
+private var anySelected: Bool = true
+private var message: String = "The stored games of tic-tac-toe can be sorted using 1 of 24 possible sequences.  Since there are four possible board pieces: the X, the O, blank and green boarder (next move), that gives us 24 possible sequences to sort on.  Choose the piece that you want to appear first, second, third and last from the list below. The sorting will begin when the 'Sort the Games' is clicked.   For example, choose 'X, O, Green, Blank, will sort games with X to appear first in sequence from the top of the game across then second line across and finally third line across. Equal values of X will then sort on O; equal values of O will sort on Green; then Blank lastly.  Also, The number of X's and O's to be displayed can be specified during the sort.  Only those games that match the numbers will be displayed in the scroll view to follow upon completion of the sort.  For example, select 'Three Xs' and 'Any Os' will scroll only games containing exactly three Xs and either two or three Os."
 
 struct SortView: View {
     @Binding var isBoardView: Bool
@@ -22,8 +25,8 @@ struct SortView: View {
     @State private var second: String = ""
     @State private var third: String = ""
     @State private var forth: String = ""
-    @State private var numberXs: Int = 0 // any, max 4
-    @State private var numberOs: Int = 0 // any, max 4
+    @State private var numberXs: Int = -1 // any, 0...4
+    @State private var numberOs: Int = -1 // any, 0...4
     
     var body: some View {
         HStack {
@@ -33,7 +36,7 @@ struct SortView: View {
                     .font(.system(size: 30.0))
                     .background(Color("BGColor"))
                     .foregroundColor(Color("DividerColor"))
-                Text("The stored games of tic-tac-toe can be sorted using 1 of 16 possible sequences.  Since there are four possible board pieces: the X, the O, blank and green boarder (next move), that gives us 16 possible sequences to sort on.  Choose the piece that you want to appear first, second, third and last from the list below. The sorting will begin when the 'Sort the Games' is clicked.   For example, choose 'X, O, Green, Blank, will sort games with X to appear first in sequence from the top of the game across then second line across and finally third line across. Equal values of X will then sort on O; equal values of O will sort on Green; then Blank lastly.  Also, The number of X's and O's can be specified during the sort.  Only those games that match the numbers will be displayed in the scroll view to follow upon completion of the sort.  For exampe, select 'Three Xs' and 'Any Os' will scroll only games containing exactly three Xs and either two or three Os.")
+                Text(message)
                     .font(.system(size: 20.0))
                     .background(Color("BGColor"))
                     .foregroundColor(Color("DividerColor"))
@@ -172,27 +175,31 @@ struct SortView: View {
                     .padding()
                     VStack {
                         Text("Number Xs")
-                        Button(" Any ") {
+                        Button("Zero Xs") {
                             numberXs = 0
                             numberOs = 0
                         }
                         Button("One X") {
                             numberXs = 1
-                            numberOs = 0
+                            numberOs = -1
                         }
                         Button("Two Xs") {
                             numberXs = 2
-                            numberOs = 0
+                            numberOs = -1
                         }
                         Button("Three Xs") {
                             numberXs = 3
-                            numberOs = 0
+                            numberOs = -1
                         }
                         Button("Four Xs") {
                             numberXs = 4
-                            numberOs = 0
+                            numberOs = -1
                         }
-                        Text(numberXs == 0 ? "Any Xs"  : "\(numberXs) Xs")
+                        Button("Any Xs") {
+                            numberXs = -1
+                            numberOs = -1
+                        }
+                        Text(numberXs == -1 ? "Any Xs"  : "\(numberXs) Xs")
                             .font(.system(size: 20.0))
                             .background(Color("BGColor"))
                             .foregroundColor(Color("DividerColor"))
@@ -200,10 +207,10 @@ struct SortView: View {
                     }
                     VStack {
                         Text("Number Os")
-                        Button("Any Os") {
+                        Button("Zero Os") {
                             numberOs = 0
                         }
-                        .disabled((numberXs == 0))
+                        .disabled(!(numberXs == 0 || numberXs == 1))
                         Button("One O") {
                             numberOs = 1
                         }
@@ -220,7 +227,11 @@ struct SortView: View {
                             numberOs = 4
                         }
                         .disabled(!(numberXs == 4))
-                        Text(numberOs == 0 ? "Any Os"  : "\(numberOs) Os")
+                        Button("Any Os") {
+                            numberOs = -1
+                        }
+                        .disabled(numberXs <= 1)
+                        Text(numberOs == -1 ? "Any Os"  : "\(numberOs) Os")
                             .font(.system(size: 20.0))
                             .background(Color("BGColor"))
                             .foregroundColor(Color("DividerColor"))
@@ -234,8 +245,13 @@ struct SortView: View {
                     }
                     .padding()
                     Button("Sort the games") {
+                        anySelected = false
                         SortGames()
-                        isBoardView = true
+                        if anySelected {
+                            isBoardView = true
+                        }else{
+                            message = "No games are selected.  Try a lower number of Xs and Os and sort again."
+                        }
                     }
                     .padding()
                     .disabled(sortBy[4] == 0)
@@ -291,7 +307,24 @@ struct SortView: View {
                 }
             }
             document.games[i].index = Int(i)
-            document.games[i].isSelected = true
+            selected = true
+            if numberXs != -1 {
+                countXs = 0
+                countOs = 0
+                for j in 0...8 {
+                    if document.games[i].board[j] == 2 { countXs += 1 }
+                    if document.games[i].board[j] == 3 { countOs += 1 }
+                }
+                if numberXs != countXs {
+                    selected = false
+                }else{
+                    if numberOs != -1 && (numberOs != countOs) {
+                        selected = false
+                    }
+                }
+            }
+            document.games[i].isSelected = selected
+            anySelected = (anySelected || selected)
         }
     }
 }
