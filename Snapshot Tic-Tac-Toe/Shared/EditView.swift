@@ -70,9 +70,45 @@ struct EditView: View {
                         Button("Cancel Changes") {
                             isBoardView = true
                         }
-                        Button("Sort") {
+                    }
+                    HStack {
+                        Button("Sort the Games") {
                             isEdit = false
                         }
+                        Button("Create all possible game combinations") {
+                            var notDone = true
+                            var counter = 0
+                            var greenBoarderFound = -1
+                            
+                            while notDone {
+                                //find and move green boarder:
+                                greenBoarderFound = -1
+                                for i in 0...8 {
+                                    if greenBoarderFound > -1 {
+                                        if aTicTacToeMove.board[i] == 4 {
+                                            aTicTacToeMove.board[greenBoarderFound] = 4
+                                            aTicTacToeMove.board[i] = 1
+                                            greenBoarderFound = i
+                                            appendGame()
+                                        }
+                                        
+                                    }else{
+                                        if aTicTacToeMove.board[i] == 4 {
+                                            greenBoarderFound = i
+                                            aTicTacToeMove.board[i] = 1
+                                            appendGame()
+                                        }
+                                        if aTicTacToeMove.board[i] == 1 {
+                                            greenBoarderFound = i
+                                        }
+                                    }
+                                }
+                                //create next X and O game.
+                                
+                            }
+                            
+                        }
+                        .disabled(document.games.count > 1)
                     }
                     
                 }
@@ -81,6 +117,9 @@ struct EditView: View {
         }else{ // false isEdit
             SortView(isBoardView: $isBoardView, document: $document, isEdit: $isEdit, newDuplicates: $newDuplicates, length: length)
         }
+    }
+    func appendGame() {
+        
     }
 }
 /*
