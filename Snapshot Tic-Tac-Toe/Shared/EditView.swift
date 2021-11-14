@@ -76,37 +76,7 @@ struct EditView: View {
                             isEdit = false
                         }
                         Button("Create all possible game combinations") {
-                            var notDone = true
-                            var counter = 0
-                            var greenBoarderFound = -1
-                            
-                            while notDone {
-                                //find and move green boarder:
-                                greenBoarderFound = -1
-                                for i in 0...8 {
-                                    if greenBoarderFound > -1 {
-                                        if aTicTacToeMove.board[i] == 4 {
-                                            aTicTacToeMove.board[greenBoarderFound] = 4
-                                            aTicTacToeMove.board[i] = 1
-                                            greenBoarderFound = i
-                                            appendGame()
-                                        }
-                                        
-                                    }else{
-                                        if aTicTacToeMove.board[i] == 4 {
-                                            greenBoarderFound = i
-                                            aTicTacToeMove.board[i] = 1
-                                            appendGame()
-                                        }
-                                        if aTicTacToeMove.board[i] == 1 {
-                                            greenBoarderFound = i
-                                        }
-                                    }
-                                }
-                                //create next X and O game.
-                                
-                            }
-                            
+                            generateGames()
                         }
                         .disabled(document.games.count > 1)
                     }
@@ -118,8 +88,81 @@ struct EditView: View {
             SortView(isBoardView: $isBoardView, document: $document, isEdit: $isEdit, newDuplicates: $newDuplicates, length: length)
         }
     }
-    func appendGame() {
-        
+    func generateGames() {
+        message = "Creating"
+        aTicTacToeMove.comment = "XO"
+        document.games.removeAll(keepingCapacity: true)
+        var c = [0,0,0,0,0]
+        var counter = -1
+        var greenBoarderFound = false
+        for a0 in 1...4 {
+            aTicTacToeMove.board[0] = a0
+            greenBoarderFound = (a0 == 1)
+            for a1 in 1...4 {
+                if !greenBoarderFound || (a1 > 1) {
+                    aTicTacToeMove.board[1] = a1
+                    if !greenBoarderFound { greenBoarderFound = (a1 == 1) }
+                    for a2 in 1...4 {
+                        if !greenBoarderFound || (a2 > 1) {
+                            aTicTacToeMove.board[2] = a2
+                            if !greenBoarderFound { greenBoarderFound = (a2 == 1) }
+                            for a3 in 1...4 {
+                                if !greenBoarderFound || (a3 > 1) {
+                                    aTicTacToeMove.board[3] = a3
+                                    if !greenBoarderFound { greenBoarderFound = (a3 == 1) }
+                                    for a4 in 1...4 {
+                                        if !greenBoarderFound || (a4 > 1) {
+                                            aTicTacToeMove.board[4] = a4
+                                            if !greenBoarderFound { greenBoarderFound = (a4 == 1) }
+                                            for a5 in 1...4 {
+                                                if !greenBoarderFound || (a5 > 1) {
+                                                    aTicTacToeMove.board[5] = a5
+                                                    if !greenBoarderFound { greenBoarderFound = (a5 == 1) }
+                                                    for a6 in 1...4 {
+                                                        if !greenBoarderFound || (a6 > 1) {
+                                                            aTicTacToeMove.board[6] = a6
+                                                            if !greenBoarderFound { greenBoarderFound = (a6 == 1) }
+                                                            for a7 in 1...4 {
+                                                                if !greenBoarderFound || (a7 > 1) {
+                                                                    aTicTacToeMove.board[7] = a7
+                                                                    if !greenBoarderFound { greenBoarderFound = (a7 == 1) }
+                                                                    for a8 in 1...4 {
+                                                                        if !greenBoarderFound || (a8 > 1) {
+                                                                            aTicTacToeMove.board[8] = a8
+                                                                            c = [0,0,0,0,0] //na, green, x, o, blank
+                                                                            for i in 0...8 {
+                                                                                c[aTicTacToeMove.board[i]] += 1
+                                                                            }
+                                                                            if  c[1] == 1 && (c[2] == c[3] || c[2] == c[3] + 1) {
+                                                                                counter += 1
+                                                                                aTicTacToeMove.index = counter
+                                                                                document.games.append(TicTacToeMove(copyBoard: aTicTacToeMove))
+                                                                            }
+                                                                        } // end if a8 > 1
+                                                                    } // end for a8
+                                                                    
+                                                                } // end if a7 > 1
+                                                            } // end for a7
+                                                            
+                                                        } // end if a6 > 1
+                                                    } // end for a6
+                                                    
+                                                } // end if a5 > 1
+                                            } // end for a5
+                                            
+                                        } // end if a4 > 1
+                                    } // end for a4
+                                    
+                                } // end if a3 > 1
+                            } // end for a3
+                            
+                        } // end if a2 > 1
+                    } // end for a2
+                    
+                } // end if a1 > 1
+            } // end for a1
+            
+        } // end for a0
     }
 }
 /*
