@@ -13,6 +13,7 @@
 
 import SwiftUI
 
+var a = 11
 struct SquareViewEdit: View {
     var length: CGFloat
     @Binding var aBoard: TicTacToeMove
@@ -30,14 +31,14 @@ struct SquareViewEdit: View {
                     Text("")
                         .frame(width: length * 0.9, height: length * 0.9, alignment: .center)
                         .background(Color("BGColor"))
-                    if aBoard.board[index] == 2 {
+                    if aBoard.board[index] == 3 {
                         Text("X")
                             .frame(width: length * 0.9, height: length * 0.9, alignment: .center)
                             .foregroundColor(Color("Text"))
                             .background(Color("BGColor"))
                             .font(.system(size: length * 0.85))
                     }
-                    if aBoard.board[index] == 3 {
+                    if aBoard.board[index] == 9 {
                         Text("O")
                             .frame(width: length * 0.9, height: length * 0.9, alignment: .center)
                             .foregroundColor(Color("Text"))
@@ -46,16 +47,17 @@ struct SquareViewEdit: View {
                     }
                 } // end ZStack
                 .onTapGesture { // on ZStack
-                    if aBoard.board[index] == 4 { // is blank, tapped, so change to green boarder
+                    if aBoard.board[index] == 11 { // is blank, tapped, so change to green boarder
                         for i in aBoard.board.indices { // but first, erase any other existing green boarder.
-                            if aBoard.board[i] == 1 { aBoard.board[i] = 4 }
+                            if aBoard.board[i] == 1 { aBoard.board[i] = 11}
                         }
                         aBoard.board[index] = 1
                     }else{
-                        aBoard.board[index] += 1 // 1 is green boarder, 2 is X, 3 is O, 4 is blank.
-                        if aBoard.board[index] > 4 {
-                            aBoard.board[index] = 1
-                        }
+                        a = 11
+                        if aBoard.board[index] == 1 { a = 3 }
+                        if aBoard.board[index] == 3 { a = 9 }
+                        if aBoard.board[index] == 11 { a = 1 }
+                        aBoard.board[index] = a
                     }
                     DispatchQueue.main.async {
                         notGreen = true
@@ -66,10 +68,10 @@ struct SquareViewEdit: View {
                             case 1:
                                 notGreen = false
                                 break
-                            case 2:
+                            case 3:
                                 Xs += 1
                                 break
-                            case 3:
+                            case 9:
                                 Os += 1
                                 break
                             default:

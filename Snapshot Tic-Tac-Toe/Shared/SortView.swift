@@ -7,7 +7,8 @@
 
 import SwiftUI
 // 1 is green boarder, 2 is X, 3 is O, 4 is blank
-private var sortX: [Int] = [0,0,0,0,0]
+// 1 is green boarder, 3 is X, 9 is O, 11 is blank; 0 is pending.
+private var sortX: [Int] = [0,0,0,0,0,0,0,0,0,0,0,0]
 private var duplicates: [Int] = []
 private var countXs: Int = 0
 private var countOs: Int = 0
@@ -52,21 +53,21 @@ struct SortView: View {
                             forth = ""
                         }
                         Button("  X  ") {
-                            sortBy = [0,2,0,0,0]
+                            sortBy = [0,3,0,0,0]
                             first = "X"
                             second = ""
                             third = ""
                             forth = ""
                         }
                         Button("  O  ") {
-                            sortBy = [0,3,0,0,0]
+                            sortBy = [0,9,0,0,0]
                             first = "O"
                             second = ""
                             third = ""
                             forth = ""
                         }
                         Button("Blank") {
-                            sortBy = [0,4,0,0,0]
+                            sortBy = [0,11,0,0,0]
                             first = "Blank"
                             second = ""
                             third = ""
@@ -89,7 +90,7 @@ struct SortView: View {
                         }
                         .disabled(first == "Green" || first == "")
                         Button("  X  ") {
-                            sortBy[2] = 2
+                            sortBy[2] = 3
                             sortBy[3] = 0
                             sortBy[4] = 0
                             second = "X"
@@ -98,7 +99,7 @@ struct SortView: View {
                         }
                         .disabled(first == "X" || first == "")
                         Button("  O  ") {
-                            sortBy[2] = 3
+                            sortBy[2] = 9
                             sortBy[3] = 0
                             sortBy[4] = 0
                             second = "O"
@@ -107,7 +108,7 @@ struct SortView: View {
                         }
                         .disabled(first == "O" || first == "")
                         Button("Blank") {
-                            sortBy[2] = 4
+                            sortBy[2] = 11
                             sortBy[3] = 0
                             sortBy[4] = 0
                             second = "Blank"
@@ -129,19 +130,19 @@ struct SortView: View {
                         }
                         .disabled((first == "Green" || second == "Green") || second == "")
                         Button("  X  ") {
-                            sortBy[3] = 2
+                            sortBy[3] = 3
                             third = "X"
                             forth = FindLast()
                         }
                         .disabled((first == "X" || second == "X") || second == "")
                         Button("  O  ") {
-                            sortBy[3] = 3
+                            sortBy[3] = 9
                             third = "O"
                             forth = FindLast()
                         }
                         .disabled((first == "O" || second == "O") || second == "")
                         Button("Blank") {
-                            sortBy[3] = 4
+                            sortBy[3] = 11
                             third = "Blank"
                             forth = FindLast()
                         }
@@ -195,7 +196,7 @@ struct SortView: View {
                             numberXs = -1
                             numberOs = -1
                         }
-                        Text(numberXs == -1 ? "Any Xs"  : "\(numberXs) Xs")
+                        Text(numberXs == -1 ? "Any Xs"  : numberXs == 1 ?  "One X" : "\(numberXs) Xs")
                             .font(.system(size: 20.0))
                             .background(Color("BGColor"))
                             .foregroundColor(Color("DividerColor"))
@@ -226,7 +227,7 @@ struct SortView: View {
                             numberOs = -1
                         }
                         .disabled(numberXs <= 1)
-                        Text(numberOs == -1 ? "Any Os"  : "\(numberOs) Os")
+                        Text(numberOs == -1 ? "Any Os"  : numberOs == 1 ? "One O" : "\(numberOs) Os")
                             .font(.system(size: 20.0))
                             .background(Color("BGColor"))
                             .foregroundColor(Color("DividerColor"))
@@ -259,14 +260,15 @@ struct SortView: View {
     }
     func FindLast() -> String {
         if sortBy[1] != 0 && sortBy[2] != 0 && sortBy[3] != 0 {
-            sortBy[4] = 10 - sortBy[1] - sortBy[2] - sortBy[3]
+            sortBy[4] = 24 - sortBy[1] - sortBy[2] - sortBy[3]
             for i in 1...4 { sortX[sortBy[i]] = i}
             if sortBy[4] == 1 { return "Green" }
-            if sortBy[4] == 2 { return "X" }
-            if sortBy[4] == 3 { return "O" }
-            if sortBy[4] == 4 { return "Blank"}
-            sortBy = [0,1,2,3,4]
-            sortX  = [0,1,2,3,4]
+            if sortBy[4] == 3 { return "X" }
+            if sortBy[4] == 9 { return "O" }
+            if sortBy[4] == 11 { return "Blank"}
+            // failsafe
+            sortBy = [0,1,3,9,11]
+            sortX  = [0,1,0,2,0,0,0,0,0,3,0,4]
             first  = "Green"
             second = "X"
             third = "O"
@@ -303,8 +305,8 @@ struct SortView: View {
                 countXs = 0
                 countOs = 0
                 for j in 0...8 {
-                    if document.games[i].board[j] == 2 { countXs += 1 }
-                    if document.games[i].board[j] == 3 { countOs += 1 }
+                    if document.games[i].board[j] == 3 { countXs += 1 }
+                    if document.games[i].board[j] == 9 { countOs += 1 }
                 }
                 if numberXs != countXs {
                     selected = false

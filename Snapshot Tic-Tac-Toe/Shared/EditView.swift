@@ -88,11 +88,13 @@ struct EditView: View {
             SortView(isBoardView: $isBoardView, document: $document, isEdit: $isEdit, newDuplicates: $newDuplicates, length: length)
         }
     }
-    func generateGames() {
+    func generateGames() { //0 is unused, 1 is green, 3 is X, 9 is O, blank is 11
         message = "Creating"
         aTicTacToeMove.comment = "XO"
         document.games.removeAll(keepingCapacity: true)
-        var c = [0,0,0,0,0]
+        var s = [0,0,0,0,0,0,0,0] // sums rows, cols then crosses.
+        var c = [0,0,0,0,0,0,0,0,0,0,0,0]
+        var aok = true
         var counter = -1
         var greenBoarderFound = false
         for a0 in 1...4 {
@@ -129,14 +131,30 @@ struct EditView: View {
                                                                     for a8 in 1...4 {
                                                                         if !greenBoarderFound || (a8 > 1) {
                                                                             aTicTacToeMove.board[8] = a8
-                                                                            c = [0,0,0,0,0] //na, green, x, o, blank
+                                                                            c = [0,0,0,0,0,0,0,0,0,0,0,0] //green = 1, x = 3, o = 9, blank = 11
                                                                             for i in 0...8 {
                                                                                 c[aTicTacToeMove.board[i]] += 1
                                                                             }
-                                                                            if  c[1] == 1 && (c[2] == c[3] || c[2] == c[3] + 1) {
-                                                                                counter += 1
-                                                                                aTicTacToeMove.index = counter
-                                                                                document.games.append(TicTacToeMove(copyBoard: aTicTacToeMove))
+                                                                            if  c[1] == 1 && (c[3] == c[9] || c[3] == c[9] + 1) {
+                                                                                aok = true
+                                                                                s[0] = addup(a: 0, b: 1, c: 2)
+                                                                                s[1] = addup(a: 3, b: 4, c: 5)
+                                                                                s[2] = addup(a: 6, b: 7, c: 8)
+                                                                                s[3] = addup(a: 0, b: 3, c: 6)
+                                                                                s[4] = addup(a: 1, b: 4, c: 7)
+                                                                                s[5] = addup(a: 2, b: 5, c: 8)
+                                                                                s[6] = addup(a: 0, b: 4, c: 8)
+                                                                                s[7] = addup(a: 2, b: 4, c: 6)
+                                                                                for i in 0...7 {
+                                                                                    aok = aok && (s[i] != 9) && (s[i] != 27)
+                                                                                }
+                                                                                if aok {
+                                                                                    counter += 1
+                                                                                    aTicTacToeMove.index = counter
+                                                                                    //if counter < 11000 {
+                                                                                        document.games.append(TicTacToeMove(copyBoard: aTicTacToeMove))
+                                                                                    //}
+                                                                                }
                                                                             }
                                                                         } // end if a8 > 1
                                                                     } // end for a8
@@ -163,6 +181,9 @@ struct EditView: View {
             } // end for a1
             
         } // end for a0
+    }
+    func addup(a: Int, b: Int, c: Int) -> Int {
+        return aTicTacToeMove.board[a] + aTicTacToeMove.board[b] + aTicTacToeMove.board[c]
     }
 }
 /*

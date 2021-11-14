@@ -28,14 +28,14 @@ struct SquareView: View {
                     Text("")
                         .frame(width: length * 0.9, height: length * 0.9, alignment: .center)
                         .background(Color("BGColor"))
-                    if aBoard[index] == 2 {
+                    if aBoard[index] == 3 {
                         Text("X")
                             .frame(width: length * 0.9, height: length * 0.9, alignment: .center)
                             .foregroundColor(Color("Text"))
                             .background(Color("BGColor"))
                             .font(.system(size: length * 0.85))
                     }
-                    if aBoard[index] == 3 {
+                    if aBoard[index] == 9 {
                         Text("O")
                             .frame(width: length * 0.9, height: length * 0.9, alignment: .center)
                             .foregroundColor(Color("Text"))
