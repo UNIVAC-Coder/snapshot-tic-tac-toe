@@ -97,46 +97,29 @@ struct EditView: View {
         var c = [0,0,0,0,0,0,0,0,0,0,0,0] // counts pieces by indexed value.
         var aok = true
         var counter = -1
-        var greenBoarderFound = [true,true,true,true,true,true,true,true,true]
-        for a0 in 1...4 {
+        for a0 in 2...4 {
             aTicTacToeMove.board[0] = x[a0]
-            greenBoarderFound[0] = (a0 == 1)
-            for a1 in 1...4 {
-                if !greenBoarderFound[0] || (a1 > 1) {
+            for a1 in 2...4 {
                     aTicTacToeMove.board[1] = x[a1]
-                    if !greenBoarderFound[0] { greenBoarderFound[1] = (a1 == 1) }
-                    for a2 in 1...4 {
-                        if !greenBoarderFound[1] || (a2 > 1) {
+                    for a2 in 2...4 {
                             aTicTacToeMove.board[2] = x[a2]
-                            if !greenBoarderFound[1] { greenBoarderFound[2] = (a2 == 1) }
-                            for a3 in 1...4 {
-                                if !greenBoarderFound[2] || (a3 > 1) {
+                            for a3 in 2...4 {
                                     aTicTacToeMove.board[3] = x[a3]
-                                    if !greenBoarderFound[2] { greenBoarderFound[3] = (a3 == 1) }
-                                    for a4 in 1...4 {
-                                        if !greenBoarderFound[3] || (a4 > 1) {
+                                    for a4 in 2...4 {
                                             aTicTacToeMove.board[4] = x[a4]
-                                            if !greenBoarderFound[3] { greenBoarderFound[4] = (a4 == 1) }
-                                            for a5 in 1...4 {
-                                                if !greenBoarderFound[4] || (a5 > 1) {
+                                            for a5 in 2...4 {
                                                     aTicTacToeMove.board[5] = x[a5]
-                                                    if !greenBoarderFound[4] { greenBoarderFound[5] = (a5 == 1) }
-                                                    for a6 in 1...4 {
-                                                        if !greenBoarderFound[5] || (a6 > 1) {
+                                                    for a6 in 2...4 {
                                                             aTicTacToeMove.board[6] = x[a6]
-                                                            if !greenBoarderFound[5] { greenBoarderFound[6] = (a6 == 1) }
-                                                            for a7 in 1...4 {
-                                                                if !greenBoarderFound[6] || (a7 > 1) {
+                                                            for a7 in 2...4 {
                                                                     aTicTacToeMove.board[7] = x[a7]
-                                                                    if !greenBoarderFound[6] { greenBoarderFound[7] = (a7 == 1) }
-                                                                    for a8 in 1...4 {
-                                                                        if !greenBoarderFound[7] || (a8 > 1) {
+                                                                    for a8 in 2...4 {
                                                                             aTicTacToeMove.board[8] = x[a8]
                                                                             c = [0,0,0,0,0,0,0,0,0,0,0,0] //green = 1, x = 3, o = 9, blank = 11
                                                                             for i in 0...8 {
                                                                                 c[aTicTacToeMove.board[i]] += 1
                                                                             }
-                                                                            if  c[1] == 1 && (c[3] == c[9] || c[3] == c[9] + 1) {
+                                                                            if  (c[3] == c[9]) || (c[3] == c[9] + 1) {
                                                                                 aok = true
                                                                                 s[0] = addup(a: 0, b: 1, c: 2)
                                                                                 s[1] = addup(a: 3, b: 4, c: 5)
@@ -152,33 +135,25 @@ struct EditView: View {
                                                                                 if aok {
                                                                                     counter += 1
                                                                                     aTicTacToeMove.index = counter
-                                                                                    if counter < 110 {
+                                                                                    //if counter < 110 {
                                                                                         document.games.append(TicTacToeMove(copyBoard: aTicTacToeMove))
-                                                                                    }
+                                                                                    //}
                                                                                 }
                                                                             }
-                                                                        } // end if a8 > 1
                                                                     } // end for a8
                                                                     
-                                                                } // end if a7 > 1
                                                             } // end for a7
                                                             
-                                                        } // end if a6 > 1
                                                     } // end for a6
                                                     
-                                                } // end if a5 > 1
                                             } // end for a5
                                             
-                                        } // end if a4 > 1
                                     } // end for a4
                                     
-                                } // end if a3 > 1
                             } // end for a3
                             
-                        } // end if a2 > 1
                     } // end for a2
                     
-                } // end if a1 > 1
             } // end for a1
             
         } // end for a0
