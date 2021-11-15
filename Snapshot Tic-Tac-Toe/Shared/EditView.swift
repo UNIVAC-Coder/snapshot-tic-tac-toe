@@ -92,45 +92,46 @@ struct EditView: View {
         message = "Creating"
         aTicTacToeMove.comment = "XO"
         document.games.removeAll(keepingCapacity: true)
+        let x = [0,1,3,9,11]
         var s = [0,0,0,0,0,0,0,0] // sums rows, cols then crosses.
-        var c = [0,0,0,0,0,0,0,0,0,0,0,0]
+        var c = [0,0,0,0,0,0,0,0,0,0,0,0] // counts pieces by indexed value.
         var aok = true
         var counter = -1
-        var greenBoarderFound = false
+        var greenBoarderFound = [true,true,true,true,true,true,true,true,true]
         for a0 in 1...4 {
-            aTicTacToeMove.board[0] = a0
-            greenBoarderFound = (a0 == 1)
+            aTicTacToeMove.board[0] = x[a0]
+            greenBoarderFound[0] = (a0 == 1)
             for a1 in 1...4 {
-                if !greenBoarderFound || (a1 > 1) {
-                    aTicTacToeMove.board[1] = a1
-                    if !greenBoarderFound { greenBoarderFound = (a1 == 1) }
+                if !greenBoarderFound[0] || (a1 > 1) {
+                    aTicTacToeMove.board[1] = x[a1]
+                    if !greenBoarderFound[0] { greenBoarderFound[1] = (a1 == 1) }
                     for a2 in 1...4 {
-                        if !greenBoarderFound || (a2 > 1) {
-                            aTicTacToeMove.board[2] = a2
-                            if !greenBoarderFound { greenBoarderFound = (a2 == 1) }
+                        if !greenBoarderFound[1] || (a2 > 1) {
+                            aTicTacToeMove.board[2] = x[a2]
+                            if !greenBoarderFound[1] { greenBoarderFound[2] = (a2 == 1) }
                             for a3 in 1...4 {
-                                if !greenBoarderFound || (a3 > 1) {
-                                    aTicTacToeMove.board[3] = a3
-                                    if !greenBoarderFound { greenBoarderFound = (a3 == 1) }
+                                if !greenBoarderFound[2] || (a3 > 1) {
+                                    aTicTacToeMove.board[3] = x[a3]
+                                    if !greenBoarderFound[2] { greenBoarderFound[3] = (a3 == 1) }
                                     for a4 in 1...4 {
-                                        if !greenBoarderFound || (a4 > 1) {
-                                            aTicTacToeMove.board[4] = a4
-                                            if !greenBoarderFound { greenBoarderFound = (a4 == 1) }
+                                        if !greenBoarderFound[3] || (a4 > 1) {
+                                            aTicTacToeMove.board[4] = x[a4]
+                                            if !greenBoarderFound[3] { greenBoarderFound[4] = (a4 == 1) }
                                             for a5 in 1...4 {
-                                                if !greenBoarderFound || (a5 > 1) {
-                                                    aTicTacToeMove.board[5] = a5
-                                                    if !greenBoarderFound { greenBoarderFound = (a5 == 1) }
+                                                if !greenBoarderFound[4] || (a5 > 1) {
+                                                    aTicTacToeMove.board[5] = x[a5]
+                                                    if !greenBoarderFound[4] { greenBoarderFound[5] = (a5 == 1) }
                                                     for a6 in 1...4 {
-                                                        if !greenBoarderFound || (a6 > 1) {
-                                                            aTicTacToeMove.board[6] = a6
-                                                            if !greenBoarderFound { greenBoarderFound = (a6 == 1) }
+                                                        if !greenBoarderFound[5] || (a6 > 1) {
+                                                            aTicTacToeMove.board[6] = x[a6]
+                                                            if !greenBoarderFound[5] { greenBoarderFound[6] = (a6 == 1) }
                                                             for a7 in 1...4 {
-                                                                if !greenBoarderFound || (a7 > 1) {
-                                                                    aTicTacToeMove.board[7] = a7
-                                                                    if !greenBoarderFound { greenBoarderFound = (a7 == 1) }
+                                                                if !greenBoarderFound[6] || (a7 > 1) {
+                                                                    aTicTacToeMove.board[7] = x[a7]
+                                                                    if !greenBoarderFound[6] { greenBoarderFound[7] = (a7 == 1) }
                                                                     for a8 in 1...4 {
-                                                                        if !greenBoarderFound || (a8 > 1) {
-                                                                            aTicTacToeMove.board[8] = a8
+                                                                        if !greenBoarderFound[7] || (a8 > 1) {
+                                                                            aTicTacToeMove.board[8] = x[a8]
                                                                             c = [0,0,0,0,0,0,0,0,0,0,0,0] //green = 1, x = 3, o = 9, blank = 11
                                                                             for i in 0...8 {
                                                                                 c[aTicTacToeMove.board[i]] += 1
@@ -151,9 +152,9 @@ struct EditView: View {
                                                                                 if aok {
                                                                                     counter += 1
                                                                                     aTicTacToeMove.index = counter
-                                                                                    //if counter < 11000 {
+                                                                                    if counter < 110 {
                                                                                         document.games.append(TicTacToeMove(copyBoard: aTicTacToeMove))
-                                                                                    //}
+                                                                                    }
                                                                                 }
                                                                             }
                                                                         } // end if a8 > 1
