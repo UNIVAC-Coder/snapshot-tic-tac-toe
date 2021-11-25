@@ -87,15 +87,33 @@ struct EditView: View {
                         Button("Cancel Changes") {
                             isBoardView = true
                         }
-                    }
-                    HStack {
                         Button("Sort the Games") {
                             isEdit = false
                         }
-                        Button("Create all possible game combinations") {
-                            generateGames()
+                    }
+                    HStack {
+                        Spacer()
+                        Button("Create all possible game combinations with green boarder, 5190 games, 11 minutes.") {
+                            generateGames(a: 1)
                         }
                         .disabled(document.games.count > 1)
+                        Spacer()
+                    }
+                    HStack {
+                        Spacer()
+                        Button("Create all possible game combinations without a green boarder, 1142 games, 2 minutes.") {
+                            generateGames(a: 2)
+                        }
+                        .disabled(document.games.count > 1)
+                        Spacer()
+                    }
+                    HStack {
+                        Spacer()
+                        Button("Search for matching game.") {
+                            SearchFor()
+                        }
+                        .disabled(notGreen)
+                        Spacer()
                     }
                     
                 }
@@ -105,7 +123,20 @@ struct EditView: View {
             SortView(isBoardView: $isBoardView, document: $document, isEdit: $isEdit, newDuplicates: $newDuplicates, length: length)
         }
     }
-    func generateGames() {
+    func SearchFor() {
+        message = "Game Not Found"
+        for aGame in document.games {
+            switch aTicTacToeMove.board {
+            case aGame.board, aGame.board90, aGame.board180, aGame.board270 :
+                message = "Game Found"
+                aTicTacToeMove = TicTacToeMove(copyBoard: aGame)
+                break
+            default:
+                break
+            }
+        }
+    }
+    func generateGames(a: Int) {
         message = "Creating"
         aTicTacToeMove.comment = "XO"
         document.games.removeAll(keepingCapacity: true)
@@ -123,38 +154,38 @@ struct EditView: View {
         var g6 = 0
         var g7 = 0
         var g8 = 0
-        for a0 in 1...4 {
+        for a0 in a...4 {
             g0 = (a0 == 1) ? 1 : 0
             aTicTacToeMove.board[0] = x[a0]
-            for a1 in 1...4 {
+            for a1 in a...4 {
                 g1 = (a1 == 1) ? 1 : 0
                 if g0 + g1 <= 1 {
                     aTicTacToeMove.board[1] = x[a1]
-                    for a2 in 1...4 {
+                    for a2 in a...4 {
                         g2 = (a2 == 1) ? 1 : 0
                         if g0 + g1 + g2 <= 1 {
                             aTicTacToeMove.board[2] = x[a2]
-                            for a3 in 1...4 {
+                            for a3 in a...4 {
                                 g3 = (a3 == 1) ? 1 : 0
                                 if g0 + g1 + g2 + g3 <= 1 {
                                     aTicTacToeMove.board[3] = x[a3]
-                                    for a4 in 1...4 {
+                                    for a4 in a...4 {
                                         g4 = (a4 == 1) ? 1 : 0
                                         if g0 + g1 + g2 + g3 + g4 <= 1 {
                                             aTicTacToeMove.board[4] = x[a4]
-                                            for a5 in 1...4 {
+                                            for a5 in a...4 {
                                                 g5 = (a5 == 1) ? 1 : 0
                                                 if g0 + g1 + g2 + g3 + g4 + g5 <= 1 {
                                                     aTicTacToeMove.board[5] = x[a5]
-                                                    for a6 in 1...4 {
+                                                    for a6 in a...4 {
                                                         g6 = (a6 == 1) ? 1 : 0
                                                         if g0 + g1 + g2 + g3 + g4 + g5 + g6 <= 1 {
                                                             aTicTacToeMove.board[6] = x[a6]
-                                                            for a7 in 1...4 {
+                                                            for a7 in a...4 {
                                                                 g7 = (a7 == 1) ? 1 : 0
                                                                 if g0 + g1 + g2 + g3 + g4 + g5 + g6 + g7 <= 1 {
                                                                     aTicTacToeMove.board[7] = x[a7]
-                                                                    for a8 in 1...4 {
+                                                                    for a8 in a...4 {
                                                                         g8 = (a8 == 1) ? 1 : 0
                                                                         if g0 + g1 + g2 + g3 + g4 + g5 + g6 + g7 + g8 <= 1 {
                                                                             aTicTacToeMove.board[8] = x[a8]
