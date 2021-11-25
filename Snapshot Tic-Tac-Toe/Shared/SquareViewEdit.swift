@@ -20,6 +20,7 @@ struct SquareViewEdit: View {
     var index: Int
     @Binding var notGreen: Bool
     @Binding var document: Snapshot_Tic_Tac_ToeDocument
+    @Binding var message: String
     
     var body: some View {
         VStack(spacing: 0.0) {
@@ -47,6 +48,7 @@ struct SquareViewEdit: View {
                     }
                 } // end ZStack
                 .onTapGesture { // on ZStack
+                    message = "Editing"
                     if aBoard.board[index] == 11 { // is blank, tapped, so change to green boarder
                         for i in aBoard.board.indices { // but first, erase any other existing green boarder.
                             if aBoard.board[i] == 1 { aBoard.board[i] = 11}
