@@ -88,61 +88,93 @@ struct EditView: View {
             SortView(isBoardView: $isBoardView, document: $document, isEdit: $isEdit, newDuplicates: $newDuplicates, length: length)
         }
     }
-    func generateGames() { //0 is unused, 1 is green, 3 is X, 9 is O, blank is 11
+    func generateGames() {
         message = "Creating"
         aTicTacToeMove.comment = "XO"
         document.games.removeAll(keepingCapacity: true)
-        let x = [0,1,3,9,11]
+        //let y = [0,1,4]
+        let w = [2,3,5,6,7,8]
+        let x = [0,1,3,9,11]  // 0 is unused, 1 is green, 3 is X, 9 is O, blank is 11
         var s = [0,0,0,0,0,0,0,0] // sums rows, cols then crosses.
         var c = [0,0,0,0,0,0,0,0,0,0,0,0] // counts pieces by indexed value.
         var aok = true
         var counter = -1
-        for a0 in 2...4 {
-            aTicTacToeMove.board[0] = x[a0]
+        var y1 = 0
+        for y0 in 1...7 {
+            y1 = y0
+            aTicTacToeMove.board = [0,0,0,0,0,0,0,0,0]
+            if y1 >= 4 {
+                aTicTacToeMove.board[0] = 3 // X
+                y1 -= 4
+            }else{
+                aTicTacToeMove.board[0] = 11 // blank
+            }
+            if y1 >= 2 {
+                aTicTacToeMove.board[1] = 3 // X
+                y1 -= 2
+            }else {
+                aTicTacToeMove.board[1] = 11 // blank
+            }
+            if y1 == 1 {
+                aTicTacToeMove.board[4] = 3 // X
+            }else{
+                aTicTacToeMove.board[4] = 11 // blank
+            }
             for a1 in 2...4 {
-                    aTicTacToeMove.board[1] = x[a1]
+                aTicTacToeMove.board[w[0]] = x[a1]
                     for a2 in 2...4 {
-                            aTicTacToeMove.board[2] = x[a2]
+                            aTicTacToeMove.board[w[1]] = x[a2]
                             for a3 in 2...4 {
-                                    aTicTacToeMove.board[3] = x[a3]
+                                    aTicTacToeMove.board[w[2]] = x[a3]
                                     for a4 in 2...4 {
-                                            aTicTacToeMove.board[4] = x[a4]
+                                            aTicTacToeMove.board[w[3]] = x[a4]
                                             for a5 in 2...4 {
-                                                    aTicTacToeMove.board[5] = x[a5]
+                                                    aTicTacToeMove.board[w[4]] = x[a5]
                                                     for a6 in 2...4 {
-                                                            aTicTacToeMove.board[6] = x[a6]
-                                                            for a7 in 2...4 {
-                                                                    aTicTacToeMove.board[7] = x[a7]
-                                                                    for a8 in 2...4 {
-                                                                            aTicTacToeMove.board[8] = x[a8]
-                                                                            c = [0,0,0,0,0,0,0,0,0,0,0,0] //green = 1, x = 3, o = 9, blank = 11
-                                                                            for i in 0...8 {
-                                                                                c[aTicTacToeMove.board[i]] += 1
-                                                                            }
-                                                                            if  (c[3] == c[9]) || (c[3] == c[9] + 1) {
-                                                                                aok = true
-                                                                                s[0] = addup(a: 0, b: 1, c: 2)
-                                                                                s[1] = addup(a: 3, b: 4, c: 5)
-                                                                                s[2] = addup(a: 6, b: 7, c: 8)
-                                                                                s[3] = addup(a: 0, b: 3, c: 6)
-                                                                                s[4] = addup(a: 1, b: 4, c: 7)
-                                                                                s[5] = addup(a: 2, b: 5, c: 8)
-                                                                                s[6] = addup(a: 0, b: 4, c: 8)
-                                                                                s[7] = addup(a: 2, b: 4, c: 6)
-                                                                                for i in 0...7 {
-                                                                                    aok = aok && (s[i] != 9) && (s[i] != 27)
-                                                                                }
-                                                                                if aok {
-                                                                                    counter += 1
-                                                                                    aTicTacToeMove.index = counter
-                                                                                    //if counter < 110 {
-                                                                                        document.games.append(TicTacToeMove(copyBoard: aTicTacToeMove))
-                                                                                    //}
-                                                                                }
-                                                                            }
-                                                                    } // end for a8
-                                                                    
-                                                            } // end for a7
+                                                            aTicTacToeMove.board[w[5]] = x[a6]
+                                                            c = [0,0,0,0,0,0,0,0,0,0,0,0] //green = 1, x = 3, o = 9, blank = 11
+                                                            for i in 0...8 {
+                                                                c[aTicTacToeMove.board[i]] += 1
+                                                            }
+                                                            if  (c[3] == c[9]) || (c[3] == c[9] + 1) {
+                                                                aok = true
+                                                                s[0] = addup(a: 0, b: 1, c: 2)
+                                                                s[1] = addup(a: 3, b: 4, c: 5)
+                                                                s[2] = addup(a: 6, b: 7, c: 8)
+                                                                s[3] = addup(a: 0, b: 3, c: 6)
+                                                                s[4] = addup(a: 1, b: 4, c: 7)
+                                                                s[5] = addup(a: 2, b: 5, c: 8)
+                                                                s[6] = addup(a: 0, b: 4, c: 8)
+                                                                s[7] = addup(a: 2, b: 4, c: 6)
+                                                                for i in 0...7 {
+                                                                    aok = aok && (s[i] != 9) && (s[i] != 27)
+                                                                }
+                                                                if aok {
+                                                                    /* an idea...
+                                                                    for i in 0...7 {
+                                                                        if (c[3] == c[9]) {
+                                                                            aok = aok && (s[i] == 17)
+                                                                        }
+                                                                        if (c[3] == c[9] + 1) {
+                                                                            
+                                                                        }
+                                                                    } */
+                                                                    for i in document.games.indices {
+                                                                        if document.games[i].board == aTicTacToeMove.board {
+                                                                            aok = false
+                                                                            break
+                                                                        }
+                                                                        // rotate 90 degrees 3 times and check for symmetry.
+                                                                    }
+                                                                    if aok {
+                                                                        counter += 1
+                                                                        aTicTacToeMove.index = counter
+                                                                        //if counter < 110 {
+                                                                            document.games.append(TicTacToeMove(copyBoard: aTicTacToeMove))
+                                                                        //}
+                                                                    }
+                                                                }
+                                                            }
                                                             
                                                     } // end for a6
                                                     
