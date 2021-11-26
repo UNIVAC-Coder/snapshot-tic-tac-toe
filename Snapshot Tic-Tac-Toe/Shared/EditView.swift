@@ -22,6 +22,7 @@ struct EditView: View {
     @State private var message: String = "Editing"
     @State private var notGreen: Bool = true
     @State private var isEdit: Bool = true // sorting when false.
+    @State private var progress: CGFloat = 0.01
     
     var body: some View {
         if isEdit {
@@ -94,6 +95,7 @@ struct EditView: View {
                     HStack {
                         Spacer()
                         Button("Create all possible game combinations with green boarder, 5190 games, 11 minutes.") {
+                            progress = 0.01
                             generateGames(a: 1)
                         }
                         .disabled(document.games.count > 1)
@@ -102,9 +104,16 @@ struct EditView: View {
                     HStack {
                         Spacer()
                         Button("Create all possible game combinations without a green boarder, 1142 games, 2 minutes.") {
+                            progress = 0.01
                             generateGames(a: 2)
                         }
                         .disabled(document.games.count > 1)
+                        Spacer()
+                    }
+                    HStack {
+                        Spacer()
+                        Text("Progress: ")
+                        ProgressView(value: progress, total: 1.0)
                         Spacer()
                     }
                     HStack {
@@ -128,7 +137,7 @@ struct EditView: View {
         for aGame in document.games {
             switch aTicTacToeMove.board {
             case aGame.board, aGame.board90, aGame.board180, aGame.board270 :
-                message = "Game Found"
+                message = "Found Game"
                 aTicTacToeMove = TicTacToeMove(copyBoard: aGame)
                 break
             default:
@@ -137,7 +146,9 @@ struct EditView: View {
         }
     }
     func generateGames(a: Int) {
-        message = "Creating"
+        
+        message = "Created"
+        aTicTacToeMove = TicTacToeMove()
         aTicTacToeMove.comment = "XO"
         document.games.removeAll(keepingCapacity: true)
         let x = [0,1,3,9,11]  // 0 is unused, 1 is green, 3 is X, 9 is O, blank is 11
@@ -154,6 +165,7 @@ struct EditView: View {
         var g6 = 0
         var g7 = 0
         var g8 = 0
+        var p0 = 0.0
         for a0 in a...4 {
             g0 = (a0 == 1) ? 1 : 0
             aTicTacToeMove.board[0] = x[a0]
@@ -187,6 +199,8 @@ struct EditView: View {
                                                                     aTicTacToeMove.board[7] = x[a7]
                                                                     for a8 in a...4 {
                                                                         g8 = (a8 == 1) ? 1 : 0
+                                                                        p0 = CGFloat(a0 + a1 + a2 + a3 + a4 + a5 + a6 + a7 + a8) / 36.0
+                                                                        if p0 > progress { progress = p0 }
                                                                         if g0 + g1 + g2 + g3 + g4 + g5 + g6 + g7 + g8 <= 1 {
                                                                             aTicTacToeMove.board[8] = x[a8]
                                                     
@@ -208,15 +222,6 @@ struct EditView: View {
                                                                                     aok = aok && (s[i] != 9) && (s[i] != 27)
                                                                                 }
                                                                                 if aok {
-                                                                                    /* an idea...
-                                                                                    for i in 0...7 {
-                                                                                        if (c[3] == c[9]) {
-                                                                                            aok = aok && (s[i] == 17)
-                                                                                        }
-                                                                                        if (c[3] == c[9] + 1) {
-                                                                                            
-                                                                                        }
-                                                                                    } */
                                                                                     for i in document.games.indices {
                                                                                         if document.games[i].board == aTicTacToeMove.board {
                                                                                             aok = false
@@ -239,10 +244,8 @@ struct EditView: View {
                                                                                     if aok {
                                                                                         counter += 1
                                                                                         aTicTacToeMove.index = counter
-                                                                                        //if counter < 110 {
-                                                                                            rotateBoard()
-                                                                                            document.games.append(TicTacToeMove(copyBoard: aTicTacToeMove))
-                                                                                        //}
+                                                                                        rotateBoard()
+                                                                                        document.games.append(TicTacToeMove(copyBoard: aTicTacToeMove))
                                                                                     }
                                                                                 }
                                                                             }
