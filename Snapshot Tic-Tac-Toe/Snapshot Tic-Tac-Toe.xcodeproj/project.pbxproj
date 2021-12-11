@@ -7,6 +7,16 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		E203085C273426D100BCFEA8 /* TicTacToeMove.swift in Sources */ = {isa = PBXBuildFile; fileRef = E203085B273426D100BCFEA8 /* TicTacToeMove.swift */; };
+		E203085D273426D100BCFEA8 /* TicTacToeMove.swift in Sources */ = {isa = PBXBuildFile; fileRef = E203085B273426D100BCFEA8 /* TicTacToeMove.swift */; };
+		E203085F2734546000BCFEA8 /* EditView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E203085E2734546000BCFEA8 /* EditView.swift */; };
+		E20308602734546000BCFEA8 /* EditView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E203085E2734546000BCFEA8 /* EditView.swift */; };
+		E20308622734548300BCFEA8 /* BoardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E20308612734548300BCFEA8 /* BoardView.swift */; };
+		E20308632734548300BCFEA8 /* BoardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E20308612734548300BCFEA8 /* BoardView.swift */; };
+		E20308652734559C00BCFEA8 /* SquareView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E20308642734559C00BCFEA8 /* SquareView.swift */; };
+		E20308662734559C00BCFEA8 /* SquareView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E20308642734559C00BCFEA8 /* SquareView.swift */; };
+		E246D039273B125600DE5BB3 /* SortView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E246D038273B125600DE5BB3 /* SortView.swift */; };
+		E246D03A273B125600DE5BB3 /* SortView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E246D038273B125600DE5BB3 /* SortView.swift */; };
 		E29523842731AEA300F418F4 /* Snapshot_Tic_Tac_ToeApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = E29523702731AEA200F418F4 /* Snapshot_Tic_Tac_ToeApp.swift */; };
 		E29523852731AEA300F418F4 /* Snapshot_Tic_Tac_ToeApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = E29523702731AEA200F418F4 /* Snapshot_Tic_Tac_ToeApp.swift */; };
 		E29523862731AEA300F418F4 /* Snapshot_Tic_Tac_ToeDocument.swift in Sources */ = {isa = PBXBuildFile; fileRef = E29523712731AEA200F418F4 /* Snapshot_Tic_Tac_ToeDocument.swift */; };
@@ -15,9 +25,16 @@
 		E29523892731AEA300F418F4 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E29523722731AEA200F418F4 /* ContentView.swift */; };
 		E295238A2731AEA300F418F4 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E29523732731AEA300F418F4 /* Assets.xcassets */; };
 		E295238B2731AEA300F418F4 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E29523732731AEA300F418F4 /* Assets.xcassets */; };
+		E2DDDE762736FB6300FE4DED /* SquareViewEdit.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2DDDE752736FB6300FE4DED /* SquareViewEdit.swift */; };
+		E2DDDE772736FB6300FE4DED /* SquareViewEdit.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2DDDE752736FB6300FE4DED /* SquareViewEdit.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		E203085B273426D100BCFEA8 /* TicTacToeMove.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TicTacToeMove.swift; sourceTree = "<group>"; };
+		E203085E2734546000BCFEA8 /* EditView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditView.swift; sourceTree = "<group>"; };
+		E20308612734548300BCFEA8 /* BoardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoardView.swift; sourceTree = "<group>"; };
+		E20308642734559C00BCFEA8 /* SquareView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SquareView.swift; sourceTree = "<group>"; };
+		E246D038273B125600DE5BB3 /* SortView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SortView.swift; sourceTree = "<group>"; };
 		E29523702731AEA200F418F4 /* Snapshot_Tic_Tac_ToeApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Snapshot_Tic_Tac_ToeApp.swift; sourceTree = "<group>"; };
 		E29523712731AEA200F418F4 /* Snapshot_Tic_Tac_ToeDocument.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Snapshot_Tic_Tac_ToeDocument.swift; sourceTree = "<group>"; };
 		E29523722731AEA200F418F4 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -28,6 +45,7 @@
 		E29523822731AEA300F418F4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		E29523832731AEA300F418F4 /* macOS.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = macOS.entitlements; sourceTree = "<group>"; };
 		E29523942731B5FE00F418F4 /* Snapshot Tic-Tac-Toe (iOS).entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "Snapshot Tic-Tac-Toe (iOS).entitlements"; sourceTree = "<group>"; };
+		E2DDDE752736FB6300FE4DED /* SquareViewEdit.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SquareViewEdit.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -65,6 +83,12 @@
 				E29523702731AEA200F418F4 /* Snapshot_Tic_Tac_ToeApp.swift */,
 				E29523712731AEA200F418F4 /* Snapshot_Tic_Tac_ToeDocument.swift */,
 				E29523722731AEA200F418F4 /* ContentView.swift */,
+				E203085E2734546000BCFEA8 /* EditView.swift */,
+				E246D038273B125600DE5BB3 /* SortView.swift */,
+				E20308612734548300BCFEA8 /* BoardView.swift */,
+				E20308642734559C00BCFEA8 /* SquareView.swift */,
+				E2DDDE752736FB6300FE4DED /* SquareViewEdit.swift */,
+				E203085B273426D100BCFEA8 /* TicTacToeMove.swift */,
 				E29523732731AEA300F418F4 /* Assets.xcassets */,
 			);
 			path = Shared;
@@ -195,6 +219,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				E29523842731AEA300F418F4 /* Snapshot_Tic_Tac_ToeApp.swift in Sources */,
+				E2DDDE762736FB6300FE4DED /* SquareViewEdit.swift in Sources */,
+				E203085F2734546000BCFEA8 /* EditView.swift in Sources */,
+				E203085C273426D100BCFEA8 /* TicTacToeMove.swift in Sources */,
+				E20308622734548300BCFEA8 /* BoardView.swift in Sources */,
+				E20308652734559C00BCFEA8 /* SquareView.swift in Sources */,
+				E246D039273B125600DE5BB3 /* SortView.swift in Sources */,
 				E29523862731AEA300F418F4 /* Snapshot_Tic_Tac_ToeDocument.swift in Sources */,
 				E29523882731AEA300F418F4 /* ContentView.swift in Sources */,
 			);
@@ -205,6 +235,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				E29523852731AEA300F418F4 /* Snapshot_Tic_Tac_ToeApp.swift in Sources */,
+				E2DDDE772736FB6300FE4DED /* SquareViewEdit.swift in Sources */,
+				E20308602734546000BCFEA8 /* EditView.swift in Sources */,
+				E203085D273426D100BCFEA8 /* TicTacToeMove.swift in Sources */,
+				E20308632734548300BCFEA8 /* BoardView.swift in Sources */,
+				E20308662734559C00BCFEA8 /* SquareView.swift in Sources */,
+				E246D03A273B125600DE5BB3 /* SortView.swift in Sources */,
 				E29523872731AEA300F418F4 /* Snapshot_Tic_Tac_ToeDocument.swift in Sources */,
 				E29523892731AEA300F418F4 /* ContentView.swift in Sources */,
 			);
