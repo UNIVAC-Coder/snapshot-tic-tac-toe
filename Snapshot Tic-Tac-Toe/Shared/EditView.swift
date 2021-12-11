@@ -30,12 +30,12 @@ struct EditView: View {
                 Spacer()
                 VStack {
                     Text(message + " #\(aTicTacToeMove.index)")
-                        .frame(width: length * 4.0, height: length * 0.2, alignment: .center)
+                        .frame(width: length * 4.0, height: length * 0.4, alignment: .center)
                         .foregroundColor(Color("DividerColor"))
-                        .font(.system(size: length * 0.2))
+                        .font(.system(size: length * 0.49))
                     TextEditor(text: $aTicTacToeMove.comment)
-                        .frame(width: length * 3.3, height: length * 0.3, alignment: .center)
-                        .font(.system(size: length * 0.2))
+                        .frame(width: length * 3.3, height: length * 0.4, alignment: .center)
+                        .font(.system(size: length * 0.4))
                         .foregroundColor(Color("DividerColor"))
                         .background(Color("BGColor"))
                         .multilineTextAlignment(.center)
@@ -150,6 +150,7 @@ struct EditView: View {
         var s = [0,0,0,0,0,0,0,0] // sums rows, cols then crosses.
         var c = [0,0,0,0,0,0,0,0,0,0,0,0] // counts pieces by indexed value, x[ ].
         var aok = true
+        var aok1 = true
         var counter = -1
         var g0 = 0
         var g1 = 0
@@ -161,6 +162,7 @@ struct EditView: View {
         var g7 = 0
         var g8 = 0
         var p0 = 0.0
+        var aBoard: [Int] = []
         for a0 in a...4 {
             g0 = (a0 == 1) ? 1 : 0
             aTicTacToeMove.board[0] = x[a0]
@@ -218,9 +220,17 @@ struct EditView: View {
                                                                                 }
                                                                                 if aok {
                                                                                     for i in document.games.indices {
-                                                                                        if document.games[i].board == aTicTacToeMove.board {
-                                                                                            aok = false
-                                                                                            break
+                                                                                        if aok {
+                                                                                            aBoard = document.games[i].board
+                                                                                            for j in [0,9,18,27] {
+                                                                                                if aok {
+                                                                                                    aok1 = true
+                                                                                                    for k in 0...8 {
+                                                                                                        aok1 = aok1 && (aBoard[k + j] == aTicTacToeMove.board[k])
+                                                                                                    }
+                                                                                                    aok = aok && !aok1
+                                                                                                }
+                                                                                            }
                                                                                         }
                                                                                     }
                                                                                     if aok {
