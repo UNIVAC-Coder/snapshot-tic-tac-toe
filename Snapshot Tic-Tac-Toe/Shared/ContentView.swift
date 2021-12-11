@@ -30,6 +30,15 @@ struct ContentView: View {
                 if self.document.games.count > 0 {
                     VStack {
                         Text(messages())
+                            .font(.system(size: SquareSide(geometry: geometry) * 0.4))
+                            .padding()
+                        HStack(spacing: SquareSide(geometry: geometry)) {
+                            ForEach (([0,90,180,270]), id: \.self ) { degrees in
+                                Text("Rotate \(degrees) degrees")
+                                    .frame(width: SquareSide(geometry: geometry) * 3.0, alignment: .center)
+                                    .font(.system(size: SquareSide(geometry: geometry) * 0.4))
+                            }
+                        }
                         HStack {
                             Spacer()
                             ScrollView() {
@@ -70,7 +79,7 @@ struct ContentView: View {
             var a = geometryWidth
             let b = geometryHeight - (geometryHeight / 9.0)
             if a > b { a = b }
-            geometryLength = a / 6.0 //there are 4 columns, 5 Rows on this screen
+            geometryLength = a / 18.0 //there are 16 columns, 5 Rows on this screen
         }
         return geometryLength
     }

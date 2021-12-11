@@ -41,9 +41,26 @@ struct EditView: View {
                         .multilineTextAlignment(.center)
                     VStack(spacing: 0.0) {
                         ForEach([0,3,6], id: \.self) { row in
-                            HStack(spacing: 0.0) {
-                                ForEach((0...2), id: \.self) { col in
-                                    SquareViewEdit(length: length, aBoard: $aTicTacToeMove, index: row + col, notGreen: $notGreen, document: $document, message: $message)
+                            HStack(spacing: length) {
+                                HStack(spacing: 0.0) {
+                                    ForEach((0...2), id: \.self) { col in
+                                        SquareViewEdit(length: length, aTicTacToeMove: $aTicTacToeMove, index: row + col, notGreen: $notGreen, document: $document, message: $message)
+                                    }
+                                }
+                                HStack(spacing: 0.0) {
+                                    ForEach((0...2), id: \.self) { col in
+                                        SquareViewEdit(length: length, aTicTacToeMove: $aTicTacToeMove, index: row + col, notGreen: $notGreen, document: $document, message: $message)
+                                    }
+                                }
+                                HStack(spacing: 0.0) {
+                                    ForEach((0...2), id: \.self) { col in
+                                        SquareViewEdit(length: length, aTicTacToeMove: $aTicTacToeMove, index: row + col, notGreen: $notGreen, document: $document, message: $message)
+                                    }
+                                }
+                                HStack(spacing: 0.0) {
+                                    ForEach((0...2), id: \.self) { col in
+                                        SquareViewEdit(length: length, aTicTacToeMove: $aTicTacToeMove, index: row + col, notGreen: $notGreen, document: $document, message: $message)
+                                    }
                                 }
                             }
                         }

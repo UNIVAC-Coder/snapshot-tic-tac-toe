@@ -22,26 +22,45 @@ struct BoardView: View {
             //Spacer()
             VStack {
                 Text("")
-                    .frame(width: length * 4.0, height: 3.0, alignment: .center)
+                    .frame(width: length * 16.0, height: 3.0, alignment: .center)
                     .background(Color("DividerColor"))
                     .padding()
                 Text("#\(tictactoeMove.index)")
-                    .frame(width: length * 4.0, height: length * 0.2, alignment: .center)
+                    .frame(width: length * 16.0, height: length * 0.2, alignment: .center)
                     .foregroundColor(Color("DividerColor"))
-                    .font(.system(size: length * 0.2))
+                    .font(.system(size: length * 0.4))
                 Text(tictactoeMove.comment)
-                    .frame(width: length * 3.3, height: length * 0.3, alignment: .center)
-                    .font(.system(size: length * 0.2))
+                    .frame(width: length * 15.0, height: length * 0.3, alignment: .center)
+                    .font(.system(size: length * 0.4))
+                
                 VStack(spacing: 0.0) {
                     ForEach([0,3,6], id: \.self) { row in
-                        HStack(spacing: 0.0) {
-                            ForEach((0...2), id: \.self) { col in
-                                SquareView(length: length, aBoard: tictactoeMove.board, index: row + col)
+                        HStack(spacing: length) {
+                            HStack(spacing: 0.0) {
+                                ForEach((0...2), id: \.self) { col in
+                                    SquareView(length: length, aBoard: tictactoeMove.board, index: row + col)
+                                }
+                            }
+                            HStack(spacing: 0.0) {
+                                ForEach((0...2), id: \.self) { col in
+                                    SquareView(length: length, aBoard: tictactoeMove.board90, index: row + col)
+                                }
+                            }
+                            HStack(spacing: 0.0) {
+                                ForEach((0...2), id: \.self) { col in
+                                    SquareView(length: length, aBoard: tictactoeMove.board180, index: row + col)
+                                }
+                            }
+                            HStack(spacing: 0.0) {
+                                ForEach((0...2), id: \.self) { col in
+                                    SquareView(length: length, aBoard: tictactoeMove.board270, index: row + col)
+                                }
                             }
                         }
                     }
                 }
             }
+        
             //Spacer()
        // }
     }
