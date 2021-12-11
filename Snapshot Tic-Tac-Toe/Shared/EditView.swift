@@ -42,24 +42,11 @@ struct EditView: View {
                     VStack(spacing: 0.0) {
                         ForEach([0,3,6], id: \.self) { row in
                             HStack(spacing: length) {
-                                HStack(spacing: 0.0) {
-                                    ForEach((0...2), id: \.self) { col in
-                                        SquareViewEdit(length: length, aTicTacToeMove: $aTicTacToeMove, index: row + col, notGreen: $notGreen, document: $document, message: $message)
-                                    }
-                                }
-                                HStack(spacing: 0.0) {
-                                    ForEach((0...2), id: \.self) { col in
-                                        SquareViewEdit(length: length, aTicTacToeMove: $aTicTacToeMove, index: row + col, notGreen: $notGreen, document: $document, message: $message)
-                                    }
-                                }
-                                HStack(spacing: 0.0) {
-                                    ForEach((0...2), id: \.self) { col in
-                                        SquareViewEdit(length: length, aTicTacToeMove: $aTicTacToeMove, index: row + col, notGreen: $notGreen, document: $document, message: $message)
-                                    }
-                                }
-                                HStack(spacing: 0.0) {
-                                    ForEach((0...2), id: \.self) { col in
-                                        SquareViewEdit(length: length, aTicTacToeMove: $aTicTacToeMove, index: row + col, notGreen: $notGreen, document: $document, message: $message)
+                                ForEach ([0,9,18,27], id: \.self) { offset in
+                                    HStack(spacing: 0.0) {
+                                        ForEach((0...2), id: \.self) { col in
+                                            SquareViewEdit(length: length, aTicTacToeMove: $aTicTacToeMove, index: row + col + offset, notGreen: $notGreen, document: $document, message: $message)
+                                        }
                                     }
                                 }
                             }
@@ -73,15 +60,6 @@ struct EditView: View {
                             for i in document.games.indices {
                                 document.games[i].index = Int(i)
                                 if document.games[i].board == aTicTacToeMove.board {
-                                    aok = false
-                                }
-                                if document.games[i].board90 == aTicTacToeMove.board {
-                                    aok = false
-                                }
-                                if document.games[i].board180 == aTicTacToeMove.board {
-                                    aok = false
-                                }
-                                if document.games[i].board270 == aTicTacToeMove.board {
                                     aok = false
                                 }
                             }
@@ -153,7 +131,7 @@ struct EditView: View {
         message = "Game Not Found"
         for aGame in document.games {
             switch aTicTacToeMove.board {
-            case aGame.board, aGame.board90, aGame.board180, aGame.board270 :
+            case aGame.board:
                 message = "Found Game"
                 aTicTacToeMove = TicTacToeMove(copyBoard: aGame)
                 break
@@ -244,19 +222,6 @@ struct EditView: View {
                                                                                             aok = false
                                                                                             break
                                                                                         }
-                                                                                        if document.games[i].board90 == aTicTacToeMove.board {
-                                                                                            aok = false
-                                                                                            break
-                                                                                        }
-                                                                                        if document.games[i].board180 == aTicTacToeMove.board {
-                                                                                            aok = false
-                                                                                            break
-                                                                                        }
-                                                                                        if document.games[i].board270 == aTicTacToeMove.board {
-                                                                                            aok = false
-                                                                                            break
-                                                                                        }
-                                                                                        // rotate 90 degrees 3 times and check for symmetry.
                                                                                     }
                                                                                     if aok {
                                                                                         counter += 1
@@ -289,41 +254,41 @@ struct EditView: View {
         return aTicTacToeMove.board[a] + aTicTacToeMove.board[b] + aTicTacToeMove.board[c]
     }
     func rotateBoard() {
-        aTicTacToeMove.board90[6]   = aTicTacToeMove.board[0]
-        aTicTacToeMove.board180[8]  = aTicTacToeMove.board[0]
-        aTicTacToeMove.board270[2]  = aTicTacToeMove.board[0]
+        aTicTacToeMove.board[15]  = aTicTacToeMove.board[0] // 9+6
+        aTicTacToeMove.board[26]  = aTicTacToeMove.board[0] //18+8
+        aTicTacToeMove.board[29]  = aTicTacToeMove.board[0] //27+2
         
-        aTicTacToeMove.board90[3]   = aTicTacToeMove.board[1]
-        aTicTacToeMove.board180[7]  = aTicTacToeMove.board[1]
-        aTicTacToeMove.board270[5]  = aTicTacToeMove.board[1]
+        aTicTacToeMove.board[12]  = aTicTacToeMove.board[1] // 9+3
+        aTicTacToeMove.board[25]  = aTicTacToeMove.board[1] //18+7
+        aTicTacToeMove.board[32]  = aTicTacToeMove.board[1] //27+5
         
-        aTicTacToeMove.board90[0]   = aTicTacToeMove.board[2]
-        aTicTacToeMove.board180[6]  = aTicTacToeMove.board[2]
-        aTicTacToeMove.board270[8]  = aTicTacToeMove.board[2]
+        aTicTacToeMove.board[09]  = aTicTacToeMove.board[2] // 9+0
+        aTicTacToeMove.board[24]  = aTicTacToeMove.board[2] //18+6
+        aTicTacToeMove.board[35]  = aTicTacToeMove.board[2] //27+8
         
-        aTicTacToeMove.board90[7]   = aTicTacToeMove.board[3]
-        aTicTacToeMove.board180[5]  = aTicTacToeMove.board[3]
-        aTicTacToeMove.board270[1]  = aTicTacToeMove.board[3]
+        aTicTacToeMove.board[16]  = aTicTacToeMove.board[3] // 9+7
+        aTicTacToeMove.board[23]  = aTicTacToeMove.board[3] //18+5
+        aTicTacToeMove.board[28]  = aTicTacToeMove.board[3] //27+1
         
-        aTicTacToeMove.board90[4]   = aTicTacToeMove.board[4]
-        aTicTacToeMove.board180[4]  = aTicTacToeMove.board[4]
-        aTicTacToeMove.board270[4]  = aTicTacToeMove.board[4]
+        aTicTacToeMove.board[13]  = aTicTacToeMove.board[4] // 9+4
+        aTicTacToeMove.board[22]  = aTicTacToeMove.board[4] //18+4
+        aTicTacToeMove.board[31]  = aTicTacToeMove.board[4] //27+4
         
-        aTicTacToeMove.board90[1]   = aTicTacToeMove.board[5]
-        aTicTacToeMove.board180[3]  = aTicTacToeMove.board[5]
-        aTicTacToeMove.board270[7]  = aTicTacToeMove.board[5]
+        aTicTacToeMove.board[10]  = aTicTacToeMove.board[5] // 9+1
+        aTicTacToeMove.board[21]  = aTicTacToeMove.board[5] //18+3
+        aTicTacToeMove.board[34]  = aTicTacToeMove.board[5] //27+7
         
-        aTicTacToeMove.board90[8]   = aTicTacToeMove.board[6]
-        aTicTacToeMove.board180[2]  = aTicTacToeMove.board[6]
-        aTicTacToeMove.board270[0]  = aTicTacToeMove.board[6]
+        aTicTacToeMove.board[17]  = aTicTacToeMove.board[6] // 9+8
+        aTicTacToeMove.board[20]  = aTicTacToeMove.board[6] //18+2
+        aTicTacToeMove.board[27]  = aTicTacToeMove.board[6] //27+0
         
-        aTicTacToeMove.board90[5]   = aTicTacToeMove.board[7]
-        aTicTacToeMove.board180[1]  = aTicTacToeMove.board[7]
-        aTicTacToeMove.board270[3]  = aTicTacToeMove.board[7]
+        aTicTacToeMove.board[14]  = aTicTacToeMove.board[7] // 9+5
+        aTicTacToeMove.board[19]  = aTicTacToeMove.board[7] //18+1
+        aTicTacToeMove.board[30]  = aTicTacToeMove.board[7] //27+3
         
-        aTicTacToeMove.board90[2]   = aTicTacToeMove.board[8]
-        aTicTacToeMove.board180[0]  = aTicTacToeMove.board[8]
-        aTicTacToeMove.board270[6]  = aTicTacToeMove.board[8]
+        aTicTacToeMove.board[11]  = aTicTacToeMove.board[8] // 9+2
+        aTicTacToeMove.board[18]  = aTicTacToeMove.board[8] //18+0
+        aTicTacToeMove.board[33]  = aTicTacToeMove.board[8] //27+6
     }
 }
 /*

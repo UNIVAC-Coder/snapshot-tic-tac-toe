@@ -90,12 +90,29 @@ struct SquareViewEdit: View {
                 }
                 Text("")
                     .frame(width: length * 0.09, height: length * 1.09, alignment: .leading)
-                    .background(Color(index == 0 || index == 1 || index == 3 || index == 4 || index == 6 || index == 7 ? "DividerColor" : "BGColor"))
+                    .background(Color(sideBar() ? "DividerColor" : "BGColor"))
             }
             Text("")
                 .frame(width: length * 1.09, height: length * 0.09, alignment: .top)
-                .background(Color(index < 6 ? "DividerColor" : "BGColor"))
+                .background(Color(bottomBar() ? "DividerColor" : "BGColor"))
         }
+    }
+    func sideBar() -> Bool {
+        for i in [0,9,18,27] {
+            if index == 0 + i { return true }
+            if index == 1 + i { return true }
+            if index == 3 + i { return true }
+            if index == 4 + i { return true }
+            if index == 6 + i { return true }
+            if index == 7 + i { return true }
+        }
+        return false
+    }
+    func bottomBar() -> Bool {
+        for i in [0,9,18,27] {
+            if index >= 0 + i && index <= 5 + i { return true }
+        }
+        return false
     }
 }
 /*
