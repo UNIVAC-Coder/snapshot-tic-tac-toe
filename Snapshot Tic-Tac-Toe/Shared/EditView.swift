@@ -22,7 +22,7 @@ struct EditView: View {
     @State private var message: String = "Editing"
     @State private var notGreen: Bool = true
     @State private var isEdit: Bool = true // sorting when false.
-    @State private var progress: CGFloat = 0.01
+    @State private var progress: CGFloat = 0.00
     
     var body: some View {
         if isEdit {
@@ -116,7 +116,7 @@ struct EditView: View {
                         ProgressView(value: progress, total: 1.0)
                         Spacer()
                     }
-                    HStack {
+                     HStack {
                         Spacer()
                         Button("Search for matching game.") {
                             SearchFor()
