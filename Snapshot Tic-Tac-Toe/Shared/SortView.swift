@@ -1,12 +1,17 @@
 //
 //  SortView.swift
 //  Snapshot Tic-Tac-Toe
+//  Creative Commons Attribution 4.0 International Public License
+//  Creative Commons may be contacted at creativecommons.org.
 //
-//  Created by Tom Cavalli on 11/9/21.
+//  Copyright (c) 2021 Thomas Cavalli
+//  Thomas Cavalli may be contacted at thomascavalli.com
+//
+//  List of What Changed (by Who and When):
+//  Created by Thomas Cavalli on 11/4/21.
 //
 
 import SwiftUI
-// 1 is green boarder, 2 is X, 3 is O, 4 is blank
 // 1 is green boarder, 3 is X, 9 is O, 11 is blank; 0 is pending.
 private var sortX: [Int] = [0,0,0,0,0,0,0,0,0,0,0,0]
 private var duplicates: [Int] = []
@@ -192,11 +197,13 @@ struct SortView: View {
                             numberXs = 4
                             numberOs = -1
                         }
+                        /*
                         Button("Any Xs") {
                             numberXs = -1
                             numberOs = -1
                         }
-                        Text(numberXs == -1 ? "Any Xs"  : numberXs == 1 ?  "One X" : "\(numberXs) Xs")
+                         */
+                        Text(numberXs == -1 ? "# Xs"  : numberXs == 1 ?  "One X" : "\(numberXs) Xs")
                             .font(.system(size: 20.0))
                             .background(Color("BGColor"))
                             .foregroundColor(Color("DividerColor"))
@@ -219,15 +226,17 @@ struct SortView: View {
                             numberOs = 3
                         }
                         .disabled(!(numberXs == 3 || numberXs == 4))
-                        Button("Four Xs") {
+                        Button("Four Os") {
                             numberOs = 4
                         }
                         .disabled(!(numberXs == 4))
+                        /*
                         Button("Any Os") {
                             numberOs = -1
                         }
                         .disabled(numberXs <= 1)
-                        Text(numberOs == -1 ? "Any Os"  : numberOs == 1 ? "One O" : "\(numberOs) Os")
+                        */
+                         Text(numberOs == -1 ? "# Os"  : numberOs == 1 ? "One O" : "\(numberOs) Os")
                             .font(.system(size: 20.0))
                             .background(Color("BGColor"))
                             .foregroundColor(Color("DividerColor"))
@@ -243,13 +252,15 @@ struct SortView: View {
                         anySelected = false
                         SortGames()
                         if anySelected {
+                            message = "Finished Sorting"
                             isBoardView = true
+                            isEdit = true
                         }else{
                             message = "No games are selected.  Try a lower number of Xs and Os and sort again."
                         }
                     }
                     .padding()
-                    .disabled(sortBy[4] == 0)
+                    .disabled(sortBy[4] == 0 || numberXs < 0 || numberOs < 0)
                     Spacer()
                 }
                 Spacer()
@@ -293,13 +304,15 @@ struct SortView: View {
             duplicates.append(secondTTT.index)
             return false
         }
+        // finished sorting...
         for i in document.games.indices {
             for j in duplicates.indices {
                 if document.games[i].index == duplicates[j] {
-                    newDuplicates.append(Int(i))
+                    newDuplicates.append(i)
+                    break
                 }
             }
-            document.games[i].index = Int(i)
+            document.games[i].index = i
             selected = true
             if numberXs != -1 {
                 countXs = 0

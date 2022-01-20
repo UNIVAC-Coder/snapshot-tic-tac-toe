@@ -87,6 +87,7 @@ struct EditView: View {
                             isEdit = false
                         }
                     }
+                    /*
                     HStack {
                         Spacer()
                         Button("Create all possible game combinations with green boarder, 5190 games, 11 minutes.") {
@@ -96,6 +97,7 @@ struct EditView: View {
                         .disabled(document.games.count > 1)
                         Spacer()
                     }
+                     */
                     HStack {
                         Spacer()
                         Button("Create all possible game combinations without a green boarder, 1142 games, 2 minutes.") {

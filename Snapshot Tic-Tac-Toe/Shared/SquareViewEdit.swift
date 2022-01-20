@@ -14,6 +14,7 @@
 import SwiftUI
 
 var a = 11
+var reunrotate = [0,1,2,3,4,5,6,7,8, 2,5,8,1,4,7,0,3,6, 8,7,6,5,4,3,2,1,0, 6,3,0,7,4,1,8,5,2]
 struct SquareViewEdit: View {
     var length: CGFloat
     @Binding var aTicTacToeMove: TicTacToeMove
@@ -61,7 +62,7 @@ struct SquareViewEdit: View {
                         if aTicTacToeMove.board[index] == 11 { a = 1 }
                         aTicTacToeMove.board[index] = a
                     }
-                    aTicTacToeMove.board[index % 9] = aTicTacToeMove.board[index] //cool but need to unrotate first.
+                    aTicTacToeMove.board[reunrotate[index]] = aTicTacToeMove.board[index]
                     rotateBoard()
                     
                     DispatchQueue.main.async {
@@ -69,7 +70,7 @@ struct SquareViewEdit: View {
                         notGreen = true
                         var Xs: Int = 0
                         var Os: Int = 0
-                        for i in aTicTacToeMove.board.indices {
+                        for i in 0...8 {
                             switch aTicTacToeMove.board[i] {
                             case 1:
                                 notGreen = false
