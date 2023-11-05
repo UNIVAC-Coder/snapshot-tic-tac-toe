@@ -17,5 +17,8 @@ I converted the square tic-tac-toe into a linear string thus:
    The first code was written in Swift using XCode two years ago and has been updated to SwiftUI in IPad Swift Playground.
 
 This Swift code is being developed in an Apple IPad using Swift Playground for coding and submitting to the Apple App Store.  I can get the Swift bundle of code in one file but am unable to upload that file, so I have copied each code segment and pasted it into a file in GitHub.  I imagine the user will have to create a new SnapShotTicTacToeApp.swift in Swift Playground then copy and paste the code back into the Playground.  This completely ruins the purpose of push and pulls.  So, if I make changes to the Playground code, I will try to copy and paste the entire code back into GitHub.
+
+So, copy and paste Six, 6, Dot .swift files and one, 1, Dot .json file into an App on Swift Playground.
+I may try to learn how to compile and run this code on GitHub and will post results then.
 GoodLuck,
 Thomas
